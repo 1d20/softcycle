@@ -26,8 +26,14 @@ module.exports =
 				bower + '/jquery/dist/jquery.js'
 				bower + '/angular/angular.js'
 				bower + '/angular-route/angular-route.js'
+				bower + '/phaser-official/build/phaser.js'
 			]
 			dest: dest + '/js'
+	js:
+		src: [
+			src + '/js/**/*.js'
+		]
+		dest: dest + '/js'
 	coffee:
 		src: [
 			src + '/coffee/soft.controllers.coffee'

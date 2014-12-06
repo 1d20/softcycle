@@ -26,6 +26,11 @@ gulp.task 'vendors:js', ->
 
 gulp.task 'vendors', ['vendors:css', 'vendors:fonts', 'vendors:js']
 
+gulp.task 'js', ->
+    gulp.src config.js.src
+        .pipe concat 'games.js'
+        .pipe gulp.dest config.js.dest
+
 gulp.task 'coffee', ->
     gulp.src config.coffee.src
         .pipe coffee()
@@ -53,6 +58,7 @@ gulp.task 'watch', ->
     gulp.watch config.vendors.js.src, ['vendors:js']
     gulp.watch config.vendors.css.src, ['vendors:css']
     gulp.watch config.vendors.fonts.src, ['vendors:fonts']
+    gulp.watch config.js.src, ['js']
     gulp.watch config.coffee.src, ['coffee']
     gulp.watch config.compass.src, ['compass']
     gulp.watch config.templates.src, ['templates']
@@ -60,6 +66,7 @@ gulp.task 'watch', ->
 
 gulp.task 'dev', [
     'vendors'
+    'js'
     'coffee'
     'compass'
     'templates'
@@ -69,6 +76,7 @@ gulp.task 'dev', [
 
 gulp.task 'default', [
     'vendors'
+    'js'
     'coffee'
     'compass'
     'templates'

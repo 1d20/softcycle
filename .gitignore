@@ -1,4 +1,4 @@
 *.pyc
 media/
 *.db
-settings/local_settings.py
+source/local_settings.py

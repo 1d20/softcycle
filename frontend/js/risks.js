@@ -6,6 +6,8 @@
         MISSLE_SPEED: 250
     };
 
+    var stateText;
+
     var GameState = function(game) {
         this.MAX_MISSILES_GOOD = 0.7; // number of missiles
         this.MAX_MISSILES_BAD = 0.7; // number of missiles
@@ -16,11 +18,11 @@
 
     // Load images and sounds
     GameState.prototype.preload = function() {
-        this.game.load.image('good_rocket', '/img/good_rocket.png');
-        this.game.load.image('bad_rocket', '/img/bad_rocket.png');
-        this.game.load.image('smoke', '/img/smoke.png');
+        this.game.load.image('good_rocket', '/static/frontend/images/games/risks/r2.png');
+        this.game.load.image('bad_rocket', '/static/frontend/images/games/risks/r1.png');
+        this.game.load.image('smoke', '/static/frontend/images/games/risks/ss.png');
 
-        this.game.load.spritesheet('explosion', '/img/explosion.png', 128, 128);
+        this.game.load.spritesheet('explosion', '/static/frontend/images/games/risks/explode.png', 64, 64);
     };
 
     // Setup the example
@@ -52,7 +54,7 @@
         });
 
         //  Create our Timer
-        this.timer = game.time.create(false);
+        this.timer = game.time.create(true);
 
         //  Set a TimerEvent to occur after 2 seconds
         this.timer.loop(this.TIMER_MAX, timeIsOut, this);
@@ -65,16 +67,23 @@
         this.timerGamif.loop(this.TIMER_MAX / 6, timeUpd, this);
         this.timerGamif.start();
 
+        stateText = game.add.text(game.world.centerX, game.world.centerY, ' ', {
+            font: '84px Arial',
+            fill: '#fff'
+        });
+        stateText.anchor.setTo(0.5, 0.5);
+        stateText.visible = false;
+
     };
 
     function timeIsOut() {
-
-
-
+        var huita = GlobalRating.Rate_Good - GlobalRating.Rate_Bad;
+        stateText.text = " Time is up!\n Your Highscore: " + huita.toString();
+        stateText.visible = true;
     }
 
     function timeUpd() {
-        GlobalRating.MISSLE_SPEED *= 2;
+        GlobalRating.MISSLE_SPEED *= 1.2;
     }
 
     function updateTimer(game) {
@@ -187,7 +196,7 @@
 
             // Add an animation for the explosion that kills the sprite when the
             // animation is complete
-            var animation = explosion.animations.add('boom', [0, 1, 2, 3], 60, false);
+            var animation = explosion.animations.add('boom', [0, 1, 2, 3], 64, false);
             animation.killOnComplete = true;
 
             // Add the explosion sprite to the group

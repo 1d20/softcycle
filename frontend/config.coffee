@@ -38,6 +38,6 @@ module.exports =
 			src + '/coffee/soft.coffee'
 		]
 		dest: dest + '/js'
-	json:
-		src: [src + '/json/**/*.json']
-		dest: dest + '/json'
+	compass:
+		src: [src + '/sass/**/*.scss']
+		dest: dest + '/css'

@@ -1,6 +1,7 @@
 gulp = require 'gulp'
 concat = require 'gulp-concat'
 coffee = require 'gulp-coffee'
+compass = require 'gulp-compass'
 install = require 'gulp-install'
 
 config = require './frontend/config'
@@ -30,6 +31,15 @@ gulp.task 'coffee', ->
 		.pipe coffee()
 		.pipe concat('scripts.js')
 		.pipe gulp.dest config.coffee.dest
+
+gulp.task 'compass', ->
+	gulp.src config.compass.src
+		.pipe compass project: __dirname + '/frontend', css: 'css', sass: 'sass', image: 'images'
+	    .on 'error', (error) ->
+	      this.emit 'end'
+
+	    .pipe concat('styles.css')
+	    .pipe gulp.dest config.compass.dest
 
 gulp.task 'watch', ->
     gulp.watch config.vendors.js.src, ['vendors:js']

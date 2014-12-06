@@ -6,6 +6,9 @@ module.exports =
 	sass:
 		src: [src + '/sass/**/*.sass']
 		dest: dest + '/css'
+	images:
+		src: [src + '/images/**/*.png']
+		dest: dest + '/images'
 	vendors:
 		css:
 			src: [

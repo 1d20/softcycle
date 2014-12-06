@@ -42,8 +42,12 @@ gulp.task 'compass', ->
         .pipe gulp.dest config.compass.dest
 
 gulp.task 'templates', ->
-  gulp.src config.templates.src
-    .pipe gulp.dest config.templates.dest
+    gulp.src config.templates.src
+        .pipe gulp.dest config.templates.dest
+
+gulp.task 'images', ->
+    gulp.src config.images.src
+        .pipe gulp.dest config.images.dest
 
 gulp.task 'watch', ->
     gulp.watch config.vendors.js.src, ['vendors:js']
@@ -52,12 +56,14 @@ gulp.task 'watch', ->
     gulp.watch config.coffee.src, ['coffee']
     gulp.watch config.compass.src, ['compass']
     gulp.watch config.templates.src, ['templates']
+    gulp.watch config.images.src, ['images']
 
 gulp.task 'dev', [
     'vendors'
     'coffee'
     'compass'
     'templates'
+    'images'
     'watch'
 ]
 
@@ -66,4 +72,5 @@ gulp.task 'default', [
     'coffee'
     'compass'
     'templates'
+    'images'
 ]

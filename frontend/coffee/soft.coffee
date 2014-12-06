@@ -1,4 +1,4 @@
-httpHeadersCongig = ($httpProvider) ->
+httpHeadersConfig = ($httpProvider) ->
     $httpProvider.defaults.transformRequest = (data) ->
         if data == undefined then data else $.param data
 
@@ -30,4 +30,4 @@ angular.module 'soft', [
 ]
     .config ['$interpolateProvider', customInterpolation]
     .config ['$routeProvider', routerConfig]
-    .config ['$httpProvider', httpHeadersCongig]
+    .config ['$httpProvider', httpHeadersConfig]

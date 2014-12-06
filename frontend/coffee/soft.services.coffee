@@ -1,1 +1,1 @@
-angular.module 'soft.services', []
+angular.module 'soft.services', ['soft.services.Profile']

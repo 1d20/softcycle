@@ -5,9 +5,8 @@ from django.conf.urls.static import static
 
 urlpatterns = patterns(
     '',
-    # Examples:
     url(r'^$', 'apps.core.views.index', name='index'),
-    # url(r'^blog/', include('blog.urls')),
+    url(r'^api/', include('apps.api.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

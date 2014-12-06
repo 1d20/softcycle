@@ -30,6 +30,19 @@ gulp.task 'coffee', ->
 		.pipe concat('scripts.js')
 		.pipe gulp.dest config.coffee.dest
 
-gulp.task 'dev', []
+gulp.task 'watch', ->
+    gulp.watch config.vendors.js.src, ['vendors:js']
+    gulp.watch config.vendors.css.src, ['vendors:css']
+    gulp.watch config.vendors.fonts.src, ['vendors:fonts']
+    gulp.watch config.coffee.src, ['coffee']
 
-gulp.task 'default', []
+gulp.task 'dev', [
+	'vendors',
+	'coffee',
+	'watch'
+]
+
+gulp.task 'default', [
+	'vendors',
+	'coffee'
+]

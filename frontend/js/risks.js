@@ -12,7 +12,7 @@
         this.MAX_MISSILES_GOOD = 0.7; // number of missiles
         this.MAX_MISSILES_BAD = 0.7; // number of missiles
         this.MAX_MISSILES = 10;
-        this.TIMER_MAX = 60000; //60 sec?
+        this.TIMER_MAX = 10000; //60 sec?
         this.TIMER_NOW = 0;
     };
 
@@ -80,6 +80,8 @@
         var huita = GlobalRating.Rate_Good - GlobalRating.Rate_Bad;
         stateText.text = " Time is up!\n Your Highscore: " + huita.toString();
         stateText.visible = true;
+        this.game.paused = true;
+        
     }
 
     function timeUpd() {
@@ -151,6 +153,9 @@
                 console.log('forEachAlive', GlobalRating.Rate_Good, GlobalRating.Rate_Bad);
             }
         }, this);
+
+        if(stateText.visible == true) 
+            game.destroy();
     };
 
     // Try to get a missile from the missileGroup

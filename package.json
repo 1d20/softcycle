@@ -1,0 +1,22 @@
+{
+  "name": "SoftCycle",
+  "version": "0.0.1",
+  "description": "Demonstration software development to beginners",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git-andrewdacenko:1d20/softcycle.git"
+  },
+  "keywords": [
+    "software",
+    "development"
+  ],
+  "author": "Andrew Dacenko <a.s.dvornik@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "gulp": "^3.8.10"
+  }
+}

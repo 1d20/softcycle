@@ -1,1 +1,3 @@
-angular.module 'soft.controllers', []
+angular.module 'soft.controllers', [
+	'soft.controllers.HomeController'
+]

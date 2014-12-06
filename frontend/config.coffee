@@ -41,3 +41,6 @@ module.exports =
 	compass:
 		src: [src + '/sass/**/*.scss']
 		dest: dest + '/css'
+	templates:
+		src: [src + '/templates/**/*.html']
+		dest: dest + '/templates'

@@ -7,3 +7,4 @@ source/local_settings.py
 
 frontend/bower_components
 node_modules
+static/frontend

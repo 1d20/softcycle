@@ -10,4 +10,3 @@ HomeController = ($http, Profile) ->
 
 angular.module 'soft.controllers.HomeController', []
 	.controller 'HomeController', ['$http', 'Profile', HomeController]
-

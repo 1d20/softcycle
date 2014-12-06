@@ -14,6 +14,18 @@ routerConfig = ($routeProvider) ->
             templateUrl: base + 'home/index.html'
             controller: 'HomeController'
             controllerAs: 'home'
+        .when '/stage/:id',
+            templateUrl: base + 'stages/stage.html'
+            controller: 'StageController'
+            controllerAs: 'stage'
+            resolve:
+                stage: ['Stage', '$route', '$location', (Stage, $route, $location) ->
+                    Stage.getStage $route.current.params.id
+                        .success (data) ->
+                            data
+                        .error (data) ->
+                            $location.path '/'
+                ]
         .otherwise
             redirectTo: '/'
 

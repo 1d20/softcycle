@@ -17,6 +17,8 @@
   "author": "Andrew Dacenko <a.s.dvornik@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "gulp": "^3.8.10"
+    "coffee-script": "^1.8.0",
+    "gulp": "^3.8.10",
+    "gulp-install": "^0.2.0"
   }
 }

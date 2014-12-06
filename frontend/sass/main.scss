@@ -1,3 +1,21 @@
+/* Mixins
+------------------------------------------------------------------------------- */
+
+/* Layout blocks
+------------------------------------------------------------------------------- */
 body {
-	background: black;
+	 {
+	font-size: 16px;
+	font-family: 'CenturyGothic',sans-serif;
+	position: relative;
+	height: 100%;
+	min-height: 100%;
+	min-width: 1142px;
+}
+html {
+	height: 100%;
+	min-height: 100%;
+}
+.content > div {
+	border: 1px solid red;
 }

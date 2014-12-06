@@ -3,4 +3,4 @@ class HomeController
 		@username = 'User Name'
 
 angular.module 'soft.controllers.HomeController', []
-	.controller 'HomeController', new HomeController
+	.controller 'HomeController', HomeController

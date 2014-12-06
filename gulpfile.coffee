@@ -46,14 +46,17 @@ gulp.task 'watch', ->
     gulp.watch config.vendors.css.src, ['vendors:css']
     gulp.watch config.vendors.fonts.src, ['vendors:fonts']
     gulp.watch config.coffee.src, ['coffee']
+    gulp.watch config.compass.src, ['compass']
 
 gulp.task 'dev', [
-	'vendors',
-	'coffee',
+	'vendors'
+	'coffee'
+	'compass'
 	'watch'
 ]
 
 gulp.task 'default', [
-	'vendors',
+	'vendors'
 	'coffee'
+	'compass'
 ]

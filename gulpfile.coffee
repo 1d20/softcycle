@@ -1,5 +1,6 @@
 gulp = require 'gulp'
 concat = require 'gulp-concat'
+coffee = require 'gulp-coffee'
 install = require 'gulp-install'
 
 config = require './frontend/config'

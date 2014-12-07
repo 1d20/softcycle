@@ -11,8 +11,8 @@
     var GameState = function(game) {
         this.MAX_MISSILES_GOOD = 0.7; // number of missiles
         this.MAX_MISSILES_BAD = 0.7; // number of missiles
-        this.MAX_MISSILES = 10;
-        this.TIMER_MAX = 10000; //60 sec?
+        this.MAX_MISSILES = 20;
+        this.TIMER_MAX = 60000; //60 sec?
         this.TIMER_NOW = 0;
     };
 
@@ -21,6 +21,7 @@
         this.game.load.image('good_rocket', '/static/frontend/images/games/risks/r2.png');
         this.game.load.image('bad_rocket', '/static/frontend/images/games/risks/r1.png');
         this.game.load.image('smoke', '/static/frontend/images/games/risks/ss.png');
+        this.game.load.audio('sfx', '/static/frontend/sounds/risks/explode2.wav');
 
         this.game.load.spritesheet('explosion', '/static/frontend/images/games/risks/explode.png', 64, 64);
     };
@@ -30,6 +31,10 @@
         // Set stage background to something sky colored
         this.game.stage.backgroundColor = 0x4488cc;
 
+        fx = game.add.audio('sfx');
+        fx.allowMultiple = true;
+
+        fx.addMarker('explode', 1, 1.0);
         // Create a group to hold the missile
         this.missileGroup = this.game.add.group();
         console.log(this.missileGroup);
@@ -150,6 +155,7 @@
                     GlobalRating.Rate_Good++;
                 else
                     GlobalRating.Rate_Bad++;
+                fx.play('explode');
                 console.log('forEachAlive', GlobalRating.Rate_Good, GlobalRating.Rate_Bad);
             }
         }, this);

@@ -5,9 +5,8 @@ HomeController = ($http, Profile) ->
 	
 	Profile
 		.getData()
-		.then (data) ->
+		.success (data) ->
 			self = angular.extend self, data
 
 angular.module 'soft.controllers.HomeController', []
 	.controller 'HomeController', ['$http', 'Profile', HomeController]
-

@@ -123,6 +123,8 @@ $bg-hover: #fff;
 $tw-hover: #428bca;
 $git-hover: #000;
 $fb-hover: #3b5998;
+$linkedin-hover: #1b86bc;
+$vk-hover: #587a9f;
 
 /*#Typography
 ------------------------------------------------------------------------------- */
@@ -186,72 +188,103 @@ a:hover {
 .wrap-steps {
 	display: flex;
 	width: 100%;
-	margin-top: 800px;
+	margin-top: 550px;
 	position: relative;
 }
 .content {
     padding: 0 0 50px 0;
 }
-.step{
+.step {
 	border: 1px solid red;
 	justify-content: space-between;
 	width: 10%;
 	font-size: 13px;
 	color: $bg-footer;
 	position: relative;
+    @include transition(opacity,0.5s, ease-in-out);
 }
-.step10{
-    top: -750px;
+.step.disabled:hover {
+	opacity: 1;  
 }
-.step9{
-    top: -700px;
-}
-.step9{
-    top: -650px;
-}
-.step8{
-    top: -600px;
-}
-.step7{
+.step10 {
     top: -550px;
 }
-.step6{
+.step9{
     top: -500px;
 }
-.step5{
+.step9 {
     top: -450px;
 }
-.step4{
+.step8 {
     top: -400px;
 }
-.step3{
+.step7 {
     top: -350px;
 }
-.step2{
+.step6 {
     top: -300px;
 }
-.step1{
+.step5 {
     top: -250px;
+}
+.step4 {
+    top: -200px;
+}
+.step3{
+    top: -150px;
+}
+.step2 {
+    top: -100px;
+}
+.step1 {
+    top: -50px;
 }
 .step figure {
     width: 100%;
     text-align: center;
 }
-.step figure i{
+.step figure i {
     width: 100%;
     padding: 10px;
     font-size: 61px;
 }
-.step  a{
+.step  a {
     width: 100%;
     text-align: center;
     display: inline-block;
     text-decoration: none;
     color: $bg-footer;
+    font-size: 16px;
+}
+.step.disabled {
+    opacity: 0.5;
 }
 .wrap-steps {
-    padding: 20px;
+    padding: 0 20px 20px 20px;
+    position: relative;
 }
+/* svg
+------------------------------------------------------------------------------- */
+.squiggle-container {
+    position: absolute;
+    top: -526px; /*-- top for all height --*/
+    width: 100%;
+    left: 0;
+}
+.header.active {
+  border: 1px solid red;
+}
+
+@keyframes movetextdown {
+ 0% {
+    top: -100px;
+ }
+ 100% {
+    top: 0px;
+ }
+
+}
+
 /* Footer
 ------------------------------------------------------------------------------- */
 .nav-bottom {
@@ -264,13 +297,19 @@ a:hover {
 .nav-bottom i{
     font-size: 40px;
     color: $color-soc-icons;
-    @include transition(all,0.5s,ease-in-out);
+    @include transition(all,0.3s,ease-in-out);
 }
 .nav-bottom .fa-facebook-square:hover {
     color: $fb-hover;
 }
 .nav-bottom .fa-twitter-square:hover {
     color: $tw-hover;
+}
+.nav-bottom .fa-linkedin-square:hover {
+    color: $linkedin-hover;
+}
+.nav-bottom .fa-vk:hover {
+    color: $vk-hover;
 }
 .nav-bottom .fa-github:hover {
     color: $git-hover;
@@ -298,4 +337,7 @@ a:hover {
     clear: both;
     height: 119px;
     width: 100%;
+}
+.footer.active{
+    border: 1px soldi red;
 }

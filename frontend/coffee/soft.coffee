@@ -24,14 +24,14 @@ routerConfig = ($routeProvider) ->
                         .success (data) ->
                             data
                         .error (data) ->
-                            $location.path '/'
+                            # $location.path '/'
                 ]
                 stats: ['Stage', '$route', (Stage, $route) ->
                     Stage.getStats $route.current.params.id
                         .success (data) ->
                             data
                         .error (data) ->
-                            $location.path '/'
+                            # $location.path '/'
                 ]
         .otherwise
             redirectTo: '/'

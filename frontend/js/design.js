@@ -2,13 +2,7 @@
 
     var game;
 
-    var matrix = [
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-    ];
+    var matrix = [];
 
     function preload() {
 
@@ -18,33 +12,41 @@
     }
 
     var bubble;
-    var size = 40;
+    var field;
+
+    var margins = {
+        left: 100,
+        top: 100
+    };
+
+    var size = 80;
 
     function create() {
+        console.log(game.world.centerX);
+        console.log(game.world.centerY);
 
-        game.stage.backgroundColor = '#1abc9c';
+        margins.left = game.world.centerX - 2.5 * size;
+        margins.top = game.world.centerY - 2.5 * size;
 
-        for (var i = 0; i < 6; i++) {
+        console.log(margins);
+
+        game.stage.backgroundColor = '#1ABC9C';
+
+        field = game.add.graphics(0, 0);
+        field.beginFill(0x2C3E50, 1);
+        field.drawRoundedRect(margins.left, margins.top, 5 * size + 5, 5 * size + 5, 5);
+
+
+        for (var i = 0; i < 5; i++) {
             matrix[i] = [];
 
-            for (var j = 0; j < 6; j++) {
-                // x, y, w, h
-                // matrix[i][j] = new Phaser.Rectangle(50 + i * 10, 50 + j * 10, 10, 10);
-
-                var rect = game.add.graphics(100 + i * size, 100 + j * size);
-                rect.beginFill(0x2C3E50, 1);
-                rect.drawRect(100 + i * size, 100 + j * size, size * 2, size * 2);
+            for (var j = 0; j < 5; j++) {
+                var rect = game.add.graphics(0, 0);
                 rect.beginFill(0x34495E, 1);
-                rect.drawRect(100 + i * size + 5, 100 + j * size + 5, size * 2 - 5, size * 2 - 5);
+                rect.drawRoundedRect(margins.left + i * size + 5, margins.top + j * size + 5, size - 5, size - 5, 5);
                 matrix[i][j] = rect;
             };
         };
-
-        // game.add.tileSprite(0, 0, 800, 600, 'rain');
-
-        // bubble = game.add.image(game.world.centerX, game.world.centerY, 'bubble');
-        // bubble.anchor.set(0.5);
-
     }
 
     function update() {
@@ -66,7 +68,7 @@
 
     window['GameStage6'] = function DesignGame() {
 
-        game = new Phaser.Game(1024, 780, Phaser.AUTO, 'game', {
+        game = new Phaser.Game(1200, 600, Phaser.AUTO, 'game', {
             preload: preload,
             create: create,
             update: update,

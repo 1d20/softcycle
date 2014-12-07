@@ -1,7 +1,7 @@
 (function(window) {
     var game;
-
-    Config = {
+    var result = null;
+    var Config = {
         gravity: 400,
         timerMax: 60000, //60sec
         maxCount: {
@@ -29,7 +29,8 @@
         this.game.load.spritesheet('budget', '/static/frontend/images/games/planing/budget.png', 33,33, 4);
         this.game.load.spritesheet('time', '/static/frontend/images/games/planing/time.png', 40, 60, 4);
         this.game.load.spritesheet('staff', '/static/frontend/images/games/planing/staff.png', 64, 64, 4);
-        this.game.load.spritesheet('problem', '/static/frontend/images/games/planing/problem.png', 64, 64, 3);
+        this.game.load.spritesheet('problem', '/static/frontend/images/games/planing/problem.png', 32, 32, 3);
+        this.game.load.image('background', '/static/frontend/images/games/planing/background.png');
     };
 
     // Setup the example
@@ -38,6 +39,7 @@
         // Set stage background color
         this.game.stage.backgroundColor = 0x4488cc;
 
+        this.game.add.sprite(0,0, 'background');
         this.budgetTimer = 0;
         this.timeTimer = 0;
         this.staffTimer = 0;
@@ -51,7 +53,7 @@
         this.GRAVITY = Config.gravity; // pixels/second/second
 
         // Create an object representing our gun
-        this.gun = this.game.add.sprite(48, this.game.height - 80, 'cannon');
+        this.gun = this.game.add.sprite(40, this.game.height / 2 - 20, 'cannon');
 
         this.gun.animations.add('shoot');
         // Set the pivot point to the center of the gun
@@ -98,7 +100,7 @@
         this.ground = this.game.add.group();
         for (var x = 0; x < this.game.width; x += 32) {
             // Add the ground blocks, enable physics on each, make them immovable
-            var groundBlock = this.game.add.sprite(x, this.game.height - 32, 'ground');
+            var groundBlock = this.game.add.sprite(x, this.game.height, 'ground');
             this.game.physics.enable(groundBlock, Phaser.Physics.ARCADE);
             groundBlock.body.immovable = true;
             groundBlock.body.allowGravity = false;
@@ -108,9 +110,9 @@
         this.problemGroup = this.game.add.group();
         
         for (var i = 0; i < Config.maxCount.problem; i++) {
-            var problem = this.game.add.sprite(Math.random() * (this.game.width-200) +200, -100,  'problem');
+            var problem = this.game.add.sprite(Math.random() * (this.game.width - 200) + 200, -100,  'problem');
             problem.animations.add('fly_problem');
-            problem.animations.play('fly_problem', 20, true);
+            problem.animations.play('fly_problem', 5888, true);
             this.problemGroup.add(problem);
             this.game.physics.enable(problem, Phaser.Physics.ARCADE);
             problem.kill();
@@ -119,7 +121,7 @@
         this.budgetGroup = this.game.add.group();
         
         for (var i = 0; i < Config.maxCount.budget; i++) {
-            var budget = this.game.add.sprite(Math.random() * (this.game.width-200) +200, -100,  'budget');
+            var budget = this.game.add.sprite(Math.random() * (this.game.width - 200) + 200, -100,  'budget');
             budget.animations.add('fly_budget');
             budget.animations.play('fly_budget', 20, true);
             this.budgetGroup.add(budget);
@@ -130,7 +132,7 @@
         this.timeGroup = this.game.add.group();
         
         for (var i = 0; i < Config.maxCount.time; i++) {
-            var time = this.game.add.sprite(Math.random() * (this.game.width-200) +200, -100,  'time');
+            var time = this.game.add.sprite(Math.random() * (this.game.width - 200) + 200, -100,  'time');
             time.animations.add('fly_time');
             time.animations.play('fly_time', 20, true);
             this.timeGroup.add(time);
@@ -142,7 +144,7 @@
         this.staffGroup = this.game.add.group();
         
         for (var i = 0; i < Config.maxCount.staff; i++) {
-            var staff = this.game.add.sprite(Math.random() * (this.game.width-200) +200, -100,  'staff');
+            var staff = this.game.add.sprite(Math.random() * (this.game.width - 200) + 200, -100,  'staff');
             staff.animations.add('fly_staff');
             staff.animations.play('fly_staff', 20, true);
             this.staffGroup.add(staff);
@@ -174,19 +176,19 @@
         this.highscoreText = this.game.add.text(
             this.game.width - 240, 20, '', {
                 font: '16px Arial',
-                fill: '#ffffff'
+                fill: '#777'
             }
         );
 
         this.timerText = this.game.add.text(
             20, 20, '', {
                 font: '16px Arial',
-                fill: '#ffffff'
+                fill: '#777'
             }
         );
         this.stateText = game.add.text(game.world.centerX/2, game.world.centerY/4, ' ', {
             font: '84px Arial',
-            fill: '#fff'
+            fill: '#222'
         });
         this.stateText.visible = false;
 
@@ -197,6 +199,7 @@
         this.stateText.text = " Time is up!\n Your Highscore: " +"\n Budget: " + Config.got.budget + "\n Time: " + Config.got.time + "\n Staff: " + Config.got.staff+"\n Problems: " + Config.got.problem;
         this.stateText.visible = true;
         game.paused = true;   
+        result = Config.got;
     }
 
     function updateTimer(game) {
@@ -407,40 +410,40 @@
     GameState.prototype.createNewProblem = function() {
         var problem = this.problemGroup.getFirstDead(); // Recycle a dead problem
         if (problem) {
-            problem.reset(Math.random() * (this.game.width-200) +200, -100); // Position on ground
+            problem.reset(Math.random() * (this.game.width - 200) + 200, -100); // Position on ground
             problem.revive(); // Set "alive"
             problem.animations.add('fly_problem');
-            problem.animations.play('fly_problem', 20, true);
+            problem.animations.play('fly_problem', 5, true);
         }
     };
 
     GameState.prototype.createNewBudget = function() {
         var budget = this.budgetGroup.getFirstDead(); // Recycle a dead budget
         if (budget) {
-            budget.reset(Math.random() * (this.game.width-200) +200, -100); // Position on ground
+            budget.reset(Math.random() * (this.game.width - 200) + 200, -100); // Position on ground
             budget.revive(); // Set "alive"
             budget.animations.add('fly_budget');
-            budget.animations.play('fly_budget', 20, true);
+            budget.animations.play('fly_budget', 5, true);
         }
     };
 
     GameState.prototype.createNewTime = function() {
         var time = this.timeGroup.getFirstDead(); // Recycle a dead time
         if (time) {
-            time.reset(Math.random() * (this.game.width-200) +200, -100); // Position on ground
+            time.reset(Math.random() * (this.game.width - 200) + 200, -100); // Position on ground
             time.revive(); // Set "alive"
             time.animations.add('fly_time');
-            time.animations.play('fly_time', 20, true);
+            time.animations.play('fly_time', 5, true);
         }
     };
 
     GameState.prototype.createNewStaff = function() {
         var staff = this.staffGroup.getFirstDead(); // Recycle a dead staff
         if (staff) {
-            staff.reset(Math.random() * (this.game.width-200) +200, -100); // Position on ground
+            staff.reset(Math.random() * (this.game.width - 200) + 200, -100); // Position on ground
             staff.revive(); // Set "alive"
             staff.animations.add('fly_staff');
-            staff.animations.play('fly_staff', 20, true);
+            staff.animations.play('fly_staff', 5, true);
         }
     };
 
@@ -489,5 +492,8 @@
     window['GameStage3'] = function GameStage3() {
         game = new Phaser.Game(1200, 600, Phaser.AUTO, 'game');
         game.state.add('game', GameState, true);
+
+        return Config.got;
     };
+
 })(window);

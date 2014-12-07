@@ -37,7 +37,7 @@
         fx.addMarker('explode', 1, 1.0);
         // Create a group to hold the missile
         this.missileGroup = this.game.add.group();
-        console.log(this.missileGroup);
+        //console.log(this.missileGroup);
         // Create a group for explosions
         this.explosionGroup = this.game.add.group();
 
@@ -119,7 +119,7 @@
     GameState.prototype.update = function() {
         if (this.game.time.fps !== 0) {
             var rate = GlobalRating.Rate_Good - GlobalRating.Rate_Bad;
-            console.log(GlobalRating.Rate_Good, GlobalRating.Rate_Bad);
+            //console.log(GlobalRating.Rate_Good, GlobalRating.Rate_Bad);
             this.fpsText.setText('Highscore: ' + rate);
             updateTimer(this);
         }
@@ -156,7 +156,7 @@
                 else
                     GlobalRating.Rate_Bad++;
                 fx.play('explode');
-                console.log('forEachAlive', GlobalRating.Rate_Good, GlobalRating.Rate_Bad);
+                //console.log('forEachAlive', GlobalRating.Rate_Good, GlobalRating.Rate_Bad);
             }
         }, this);
 
@@ -237,7 +237,7 @@
     var Missile = function(game, type, x, y) {
         this.game = game;
         this.is_good = type;
-        console.log('Missile', this.is_good);
+        //console.log('Missile', this.is_good);
         if (this.is_good) {
             Phaser.Sprite.call(this, game, x, y, 'good_rocket');
         } else {
@@ -254,7 +254,7 @@
         this.TURN_RATE = 5; // turn rate in degrees/frame
         this.WOBBLE_LIMIT = 15; // degrees
         this.WOBBLE_SPEED = 250; // milliseconds
-        this.SMOKE_LIFETIME = 3000; // milliseconds
+        this.SMOKE_LIFETIME = 6000; // milliseconds
         this.AVOID_DISTANCE = 60; // pixels
 
         // Create a variable called wobble that tweens back and forth between

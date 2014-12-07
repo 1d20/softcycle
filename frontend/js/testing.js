@@ -1,8 +1,4 @@
 (function(window) {
-    // This example uses the Phaser 2.0.4 framework
-
-    // Copyright © 2014 John Watson
-    // Licensed under the terms of the MIT License
     var game;
 
     var Config = {

@@ -37,6 +37,11 @@ module.exports =
 			src + '/js/**/*.js'
 		]
 		dest: dest + '/js'
+	fonts:
+		src: [
+			src + '/fonts/**/*.*'
+		]
+		dest: dest + '/fonts'
 	coffee:
 		src: [
 			src + '/coffee/soft.controllers.coffee'

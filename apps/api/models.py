@@ -12,5 +12,6 @@ def get_json_user_profile(request):
     result["position"] = request.user.user_profile.get_user_position()
     result["score_now"] = request.user.user_profile.get_user_score()
     result["score_need"] = request.user.user_profile.score_to_next
+    result["waterfall_level"] = request.user.user_profile.waterfall_level
 
     return result

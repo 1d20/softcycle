@@ -42,6 +42,18 @@ class Position(models.Model):
     title = models.CharField(max_length=255, default="")
     description = models.TextField()
 
+    @staticmethod
+    def get_json_positions():
+        result = []
+        positions = Position.objects.all()
+        for position in positions:
+            result.append({
+                "id": position.id,
+                "title": position.title,
+                "description": position.description,
+            })
+        return result
+
     def __unicode__(self):
         return str(self.id) + " - " + self.title
 

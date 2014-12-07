@@ -3,5 +3,6 @@ import views
 
 urlpatterns = patterns(
     '',
-    url(r'profile/$', views.profile, name='index'),
+    url(r'profile/$', views.profile),
+    url(r'positions/$', views.positions),
 )

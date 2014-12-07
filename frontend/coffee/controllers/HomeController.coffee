@@ -8,5 +8,7 @@ HomeController = ($http, Profile) ->
 		.success (data) ->
 			self = angular.extend self, data
 
+	window.testInit()
+
 angular.module 'soft.controllers.HomeController', []
 	.controller 'HomeController', ['$http', 'Profile', HomeController]

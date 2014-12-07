@@ -1,3 +1,343 @@
+/* Mixins
+------------------------------------------------------------------------------- */
+/* ADDS A BROWSER PREFIX TO THE PROPERTY */
+@mixin css3-prefix($property, $value) {
+  -webkit-#{$property}: #{$value};
+   -khtml-#{$property}: #{$value};
+     -moz-#{$property}: #{$value};
+      -ms-#{$property}: #{$value};
+       -o-#{$property}: #{$value};
+          #{$property}: #{$value};
+}
+/* BACKGROUND COLOR OPACITY */
+@mixin background-opacity($color: #000, $opacity: 0.85) {
+  background: $color;
+  background: rgba($color, $opacity);
+}
+
+/* BORDER RADIUS */
+@mixin border-radius($radius: 5px) {
+    @include css3-prefix('border-radius', $radius);
+}
+/* BOX RGBA */
+@mixin box-rgba($r: 60, $g: 3, $b: 12, $opacity: 0.23, $color: #3C3C3C) {
+  background-color: transparent;
+  background-color: rgba($r, $g, $b, $opacity);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color}',endColorstr='#{$color}');
+            zoom:   1;
+}
+/* BOX SHADOW */
+@mixin box-shadow($x: 2px, $y: 2px, $blur: 5px, $color: rgba(0,0,0,.4), $inset: "") {
+  @if ($inset != "") {
+    @include css3-prefix('box-shadow', $inset $x $y $blur $color);
+  } @else {
+    @include css3-prefix('box-shadow', $x $y $blur $color);
+  }
+}
+
+/* BOX SIZING */
+@mixin box-sizing($type: border-box) {
+  @include css3-prefix('box-sizing', $type);
+}
+
+/* COLUMNS */
+@mixin columns($count: 3, $gap: 10) {
+  @include css3-prefix('column-count', $count);
+  @include css3-prefix('column-gap', $gap);
+}
+
+/* DOUBLE BORDERS */
+@mixin double-borders($colorOne: #3C3C3C, $colorTwo: #999999, $radius: 0) {
+  border: 1px solid $colorOne;
+
+  @include css3-prefix('box-shadow', 0 0 0 1px $colorTwo);
+
+  @include border-radius( $radius );
+}
+/* OPACITY */
+@mixin opacity($opacity: 0.5) {
+    $opacityMultiplied: ($opacity * 100);
+
+    filter:         alpha(opacity=$opacityMultiplied);
+    -ms-filter:     "progid:DXImageTransform.Microsoft.Alpha(Opacity=" + $opacityMultiplied + ")";
+    @include css3-prefix('opacity', $opacity);
+}
+
+/* TEXT SHADOW */
+@mixin text-shadow($x: 2px, $y: 2px, $blur: 5px, $color: rgba(0,0,0,.4)) {
+    text-shadow: $x $y $blur $color;
+}
+
+/* TRANSFORM  */
+@mixin transform($params) {
+  @include css3-prefix('transform', $params);
+}
+
+/* TRANSFORM STYLE */
+@mixin transform-style($style: preserve-3d) {
+  @include css3-prefix('transform-style', $style);
+}
+
+/* TRANSITION */
+@mixin transition($what: all, $length: 1s, $easing: ease-in-out) {
+  @include css3-prefix('transition', $what $length $easing);
+}
+
+/* KEYFRAMES */
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+  @-moz-keyframes #{$animation-name} {
+    @content;
+  }
+  @-ms-keyframes #{$animation-name} {
+    @content;
+  }
+  @-o-keyframes #{$animation-name} {
+    @content;
+  }
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+
+/* ANIMATION */
+@mixin animation($str) {
+  @include css3-prefix('animation', $str);
+}
+
+/* Varialbles
+------------------------------------------------------------------------------- */
+$base-color: #444;
+$hover-color: #000;
+$height-footer: 110px;
+$nice-green: #0fbe7c;
+$bg-footer: #333333;
+$color-in-footer: #d5d5d5;
+$hover-in-footer: 999;
+$font-open-sans: 'Open Sans', sans-serif;
+$font-pacifico: 'Pacifico', Sans-serif;
+$color-soc-icons: #fff;
+$bg-hover: #fff;
+$tw-hover: #428bca;
+$git-hover: #000;
+$fb-hover: #3b5998;
+$linkedin-hover: #1b86bc;
+$vk-hover: #587a9f;
+
+/*#Typography
+------------------------------------------------------------------------------- */
+ h1, h2, h3, h4, h5, h6 {
+    font-family: $font-open-sans;
+}
+/* Layout blocks
+------------------------------------------------------------------------------- */
 body {
-	background: black ;
+	font-size: 16px !important;  /*delete this */
+	font-family: $font-open-sans !important; /*delete this*/
+	position: relative;
+	height: 100%;
+	min-height: 100%;
+	min-width: 1200px;
+	color: $base-color;
+}
+html {
+	height: 100%;
+	min-height: 100%;
+}
+.header{
+    padding: 20px 0 0 0;
+}
+.header .container{
+    position: relative;
+}
+.footer {
+ 	background: $bg-footer;
+    bottom: 0;
+    height: $height-footer;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 300;
+}
+a {
+    color: $color-in-footer;
+}
+a:hover {
+    color: $color-in-footer;
+}
+
+/* Main content
+------------------------------------------------------------------------------- */
+#main-page{
+    position: relative;
+}
+.logo {
+    font-family: $font-pacifico;
+    font-size: 44px;
+}
+.logo a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: $nice-green;
+    text-decoration: none;
+    width: 100%;
+}
+.wrap-steps {
+	display: flex;
+	width: 100%;
+	margin-top: 550px;
+	position: relative;
+}
+.content {
+    padding: 0 0 50px 0;
+}
+.step {
+	border: 1px solid red;
+	justify-content: space-between;
+	width: 10%;
+	font-size: 13px;
+	color: $bg-footer;
+	position: relative;
+    @include transition(opacity,0.5s, ease-in-out);
+}
+.step.disabled:hover {
+	opacity: 1;  
+}
+.step10 {
+    top: -550px;
+}
+.step9{
+    top: -500px;
+}
+.step9 {
+    top: -450px;
+}
+.step8 {
+    top: -400px;
+}
+.step7 {
+    top: -350px;
+}
+.step6 {
+    top: -300px;
+}
+.step5 {
+    top: -250px;
+}
+.step4 {
+    top: -200px;
+}
+.step3{
+    top: -150px;
+}
+.step2 {
+    top: -100px;
+}
+.step1 {
+    top: -50px;
+}
+.step figure {
+    width: 100%;
+    text-align: center;
+}
+.step figure i {
+    width: 100%;
+    padding: 10px;
+    font-size: 61px;
+}
+.step  a {
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    color: $bg-footer;
+    font-size: 16px;
+}
+.step.disabled {
+    opacity: 0.5;
+}
+.wrap-steps {
+    padding: 0 20px 20px 20px;
+    position: relative;
+}
+/* svg
+------------------------------------------------------------------------------- */
+.squiggle-container {
+    position: absolute;
+    top: -526px; /*-- top for all height --*/
+    width: 100%;
+    left: 0;
+}
+.header.active {
+  border: 1px solid red;
+}
+
+@keyframes movetextdown {
+ 0% {
+    top: -100px;
+ }
+ 100% {
+    top: 0px;
+ }
+
+}
+
+/* Footer
+------------------------------------------------------------------------------- */
+.nav-bottom {
+   margin: 0;
+}
+.nav-bottom li {
+    margin: 0 5px;
+    display: inline-block;
+}
+.nav-bottom i{
+    font-size: 40px;
+    color: $color-soc-icons;
+    @include transition(all,0.3s,ease-in-out);
+}
+.nav-bottom .fa-facebook-square:hover {
+    color: $fb-hover;
+}
+.nav-bottom .fa-twitter-square:hover {
+    color: $tw-hover;
+}
+.nav-bottom .fa-linkedin-square:hover {
+    color: $linkedin-hover;
+}
+.nav-bottom .fa-vk:hover {
+    color: $vk-hover;
+}
+.nav-bottom .fa-github:hover {
+    color: $git-hover;
+}
+.navbar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font: 20px $font-pacifico;
+}
+.navbar a{
+    color: $bg-footer;
+    text-decoration: none;
+}
+.copy {
+    font-family: $font-pacifico;
+    color: $color-soc-icons;
+    font-size: 29px;
+    padding: 5px 0;
+}
+.copy a {
+    padding: 0 0 0 5px;
+}
+.clearfix {
+    clear: both;
+    height: 119px;
+    width: 100%;
+}
+.footer.active{
+    border: 1px soldi red;
 }

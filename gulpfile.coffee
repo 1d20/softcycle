@@ -55,8 +55,8 @@ gulp.task 'images', ->
         .pipe gulp.dest config.images.dest
 
 gulp.task 'sounds', ->
-    gulp.src config.images.src
-        .pipe gulp.dest config.images.dest
+    gulp.src config.sounds.src
+        .pipe gulp.dest config.sounds.dest
 
 gulp.task 'watch', ->
     gulp.watch config.vendors.js.src, ['vendors:js']

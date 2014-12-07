@@ -9,7 +9,7 @@ module.exports =
 	images:
 		src: [src + '/images/**/*.png']
 		dest: dest + '/images'
-	images:
+	sounds:
 		src: [src + '/sounds/**/*.*']
 		dest: dest + '/sounds'
 	vendors:

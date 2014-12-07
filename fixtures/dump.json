@@ -1,0 +1,71 @@
+[{
+    "fields": {
+        "description": "Begins when a sponsor identifies a need or an oppornity. Concept Proposal is created.",
+        "title": "Initiation"
+    },
+    "model": "core.position",
+    "pk": 1
+}, {
+    "fields": {
+        "description": "Concept development takes place early in the systems engineering life cycle. The success of the subsequent development of a system or capability can be critically dependent on the soundness of the foundation that is laid during the concept development stage. In their definitions of concept development, Kossiakoff and Sweet [1] highlight phases of needs analysis (valid need and practical approach), concept exploration (performance to meet the need, feasible cost-effective approach), and concept definition (key characteristics that balance capability, operational life, and cost).",
+        "title": "System Concept Development"
+    },
+    "model": "core.position",
+    "pk": 2
+}, {
+    "fields": {
+        "description": "Develops a project Management Plan and other planning Document. Provide the basic for acquiring the resources needed to achieve a solution.",
+        "title": "Planning"
+    },
+    "model": "core.position",
+    "pk": 3
+}, {
+    "fields": {
+        "description": "Requirements analysis in systems engineering and software engineering, encompasses those tasks that go into determining the needs or conditions to meet for a new or altered product, taking account of the possibly conflicting requirements of the various stakeholders, analyzing, documenting, validating and managing software or system requirements.",
+        "title": "Requirements analysis"
+    },
+    "model": "core.position",
+    "pk": 4
+}, {
+    "fields": {
+        "description": "Requirements analysis in systems engineering and software engineering, encompasses those tasks that go into determining the needs or conditions to meet for a new or altered product, taking account of the possibly conflicting requirements of the various stakeholders, analyzing, documenting, validating and managing software or system requirements.",
+        "title": "Design"
+    },
+    "model": "core.position",
+    "pk": 5
+}, {
+    "fields": {
+        "description": "The programming and software development pathway includes occupations involve the design, development, implementation and maintenance of computer systems and software, requiring knowledge of computer operating systems, programming languages and software development.\r\n",
+        "title": "Development"
+    },
+    "model": "core.position",
+    "pk": 6
+}, {
+    "fields": {
+        "description": "Integration testing (sometimes called integration and testing, abbreviated I&T) is the phase in software testing in which individual software modules are combined and tested as a group. It occurs after unit testing and before validation testing. Integration testing takes as its input modules that have been unit tested, groups them in larger aggregates, applies tests defined in an integration test plan to those aggregates, and delivers as its output the integrated system ready for system testing.",
+        "title": "Integration and test"
+    },
+    "model": "core.position",
+    "pk": 7
+}, {
+    "fields": {
+        "description": "Implementation is the realization of an application, or execution of a plan, idea, model, design, specification, standard, algorithm, or policy.\r\nIn the IT Industry, implementation refers to post-sales process of guiding a client from purchase to use of the software or hardware that was purchased. This includes requirements analysis, scope analysis, customizations, systems integrations, user policies, user training and delivery. These steps are often overseen by a project manager using project management methodologies. Software Implementations involve several professionals that are relatively new to the knowledge based economy such as business analysts, technical analysts, solutions architects, and project managers.",
+        "title": "Implementation"
+    },
+    "model": "core.position",
+    "pk": 8
+}, {
+    "fields": {
+        "description": "Software maintenance in software engineering is the modification of a software product after delivery to correct faults, to improve performance or other attributes.\r\nA common perception of maintenance is that it merely involves fixing defects. However, one study indicated that the majority, over 80%, of the maintenance effort is used for non-corrective actions. This perception is perpetuated by users submitting problem reports that in reality are functionality enhancements to the system. More recent studies put the bug-fixing proportion closer to 21%.",
+        "title": "Operations & Maintenance"
+    },
+    "model": "core.position",
+    "pk": 9
+}, {
+    "fields": {
+        "description": "Phase ten of the Software Development LifeCycle is the Disposition Phase. We have now written technical documents for the Initiation, Concept Development, Planning, Requirements, Design, Development, Testing, Deployment and Operations phases. \r\nNext, we will write documents to show how to dispose of the software once its lifecycle is completed. Use the Disposition Phase to eliminate a large part of a system or close down a system and end the life cycle process.",
+        "title": "Disposition"
+    },
+    "model": "core.position",
+    "pk": 10
+}]

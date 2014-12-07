@@ -1,77 +1,242 @@
 (function(window) {
 
-    var game;
+    const PUZZLEDIFFICULTY = 4;
+    const PUZZLEHOVERTINT = '#009900';
 
-    var matrix = [
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-    ];
+    var stage;
+    var canvas;
 
-    function preload() {
+    var img;
+    var pieces;
+    var puzzleWidth;
+    var puzzleHeight;
+    var pieceWidth;
+    var pieceHeight;
+    var currentPiece;
+    var currentDropPiece;
 
-        // game.load.image('rain', 'assets/pics/thalion-rain.png');
-        // game.load.image('bubble', 'assets/pics/bubble-on.png');
+    var mouse;
 
+    function init() {
+        img = new Image();
+        img.addEventListener('load', onImage, false);
+        img.src = '/static/frontend/images/games/design/site1.png';
     }
 
-    var bubble;
-    var size = 40;
+    function onImage(e) {
+        pieceWidth = Math.floor(img.width / PUZZLEDIFFICULTY)
+        pieceHeight = Math.floor(img.height / PUZZLEDIFFICULTY)
+        puzzleWidth = pieceWidth * PUZZLEDIFFICULTY;
+        puzzleHeight = pieceHeight * PUZZLEDIFFICULTY;
+        setCanvas();
+        initPuzzle();
+    }
 
-    function create() {
+    function setCanvas() {
+        game = document.getElementById('game');
+        canvas = document.createElement('canvas');
+        game.appendChild(canvas);
+        stage = canvas.getContext('2d');
+        canvas.width = puzzleWidth;
+        canvas.height = puzzleHeight;
+        canvas.style.border = "1px solid black";
+    }
 
-        game.stage.backgroundColor = '#1abc9c';
+    function initPuzzle() {
+        pieces = [];
+        mouse = {
+            x: 0,
+            y: 0
+        };
+        currentPiece = null;
+        currentDropPiece = null;
+        stage.drawImage(img, 0, 0, puzzleWidth, puzzleHeight, 0, 0, puzzleWidth, puzzleHeight);
+        createTitle("Click to Start Puzzle");
+        buildPieces();
+    }
 
-        for (var i = 0; i < 6; i++) {
-            matrix[i] = [];
+    function createTitle(msg) {
+        stage.fillStyle = "#000000";
+        stage.globalAlpha = .4;
+        stage.fillRect(100, puzzleHeight - 40, puzzleWidth - 200, 40);
+        stage.fillStyle = "#FFFFFF";
+        stage.globalAlpha = 1;
+        stage.textAlign = "center";
+        stage.textBaseline = "middle";
+        stage.font = "20px Arial";
+        stage.fillText(msg, puzzleWidth / 2, puzzleHeight - 20);
+    }
 
-            for (var j = 0; j < 6; j++) {
-                // x, y, w, h
-                // matrix[i][j] = new Phaser.Rectangle(50 + i * 10, 50 + j * 10, 10, 10);
+    function buildPieces() {
+        var i;
+        var piece;
+        var xPos = 0;
+        var yPos = 0;
+        for (i = 0; i < PUZZLEDIFFICULTY * PUZZLEDIFFICULTY; i++) {
+            piece = {};
+            piece.sx = xPos;
+            piece.sy = yPos;
+            pieces.push(piece);
+            xPos += pieceWidth;
+            if (xPos >= puzzleWidth) {
+                xPos = 0;
+                yPos += pieceHeight;
+            }
+        }
+        document.onmousedown = shufflePuzzle;
+    }
 
-                var rect = game.add.graphics(100 + i * size, 100 + j * size);
-                rect.beginFill(0x2C3E50, 1);
-                rect.drawRect(100 + i * size, 100 + j * size, size * 2, size * 2);
-                rect.beginFill(0x34495E, 1);
-                rect.drawRect(100 + i * size + 5, 100 + j * size + 5, size * 2 - 5, size * 2 - 5);
-                matrix[i][j] = rect;
-            };
+    function shufflePuzzle(e) {
+        e.preventDefault();
+
+        var isClickOverCanvas = $('#game').find(e.target);
+
+        if (!isClickOverCanvas.length) {
+            return false;
         };
 
-        // game.add.tileSprite(0, 0, 800, 600, 'rain');
-
-        // bubble = game.add.image(game.world.centerX, game.world.centerY, 'bubble');
-        // bubble.anchor.set(0.5);
-
-    }
-
-    function update() {
-
-        if (game.input.activePointer.withinGame) {
-            // bubble.alpha = 1;
-        } else {
-            // bubble.alpha = 0.3;
+        pieces = shuffleArray(pieces);
+        stage.clearRect(0, 0, puzzleWidth, puzzleHeight);
+        var i;
+        var piece;
+        var xPos = 0;
+        var yPos = 0;
+        for (i = 0; i < pieces.length; i++) {
+            piece = pieces[i];
+            piece.xPos = xPos;
+            piece.yPos = yPos;
+            stage.drawImage(img, piece.sx, piece.sy, pieceWidth, pieceHeight, xPos, yPos, pieceWidth, pieceHeight);
+            stage.strokeRect(xPos, yPos, pieceWidth, pieceHeight);
+            xPos += pieceWidth;
+            if (xPos >= puzzleWidth) {
+                xPos = 0;
+                yPos += pieceHeight;
+            }
         }
-
+        document.onmousedown = onPuzzleClick;
     }
 
-    function render() {
+    function onPuzzleClick(e) {
+        if (e.layerX || e.layerX == 0) {
+            mouse.x = e.layerX - canvas.offsetLeft;
+            mouse.y = e.layerY - canvas.offsetTop;
+        } else if (e.offsetX || e.offsetX == 0) {
+            mouse.x = e.offsetX - canvas.offsetLeft;
+            mouse.y = e.offsetY - canvas.offsetTop;
+        }
+        currentPiece = checkPieceClicked();
+        if (currentPiece != null) {
+            stage.clearRect(currentPiece.xPos, currentPiece.yPos, pieceWidth, pieceHeight);
+            stage.save();
+            stage.globalAlpha = .9;
+            stage.drawImage(img, currentPiece.sx, currentPiece.sy, pieceWidth, pieceHeight, mouse.x - (pieceWidth / 2), mouse.y - (pieceHeight / 2), pieceWidth, pieceHeight);
+            stage.restore();
+            document.onmousemove = updatePuzzle;
+            document.onmouseup = pieceDropped;
+        }
+    }
 
-        game.debug.inputInfo(32, 32);
-        game.debug.pointer(game.input.activePointer);
+    function checkPieceClicked() {
+        var i;
+        var piece;
+        for (i = 0; i < pieces.length; i++) {
+            piece = pieces[i];
+            if (mouse.x < piece.xPos || mouse.x > (piece.xPos + pieceWidth) || mouse.y < piece.yPos || mouse.y > (piece.yPos + pieceHeight)) {
+                //PIECE NOT HIT
+            } else {
+                return piece;
+            }
+        }
+        return null;
+    }
 
+    function updatePuzzle(e) {
+        currentDropPiece = null;
+        if (e.layerX || e.layerX == 0) {
+            mouse.x = e.layerX - canvas.offsetLeft;
+            mouse.y = e.layerY - canvas.offsetTop;
+        } else if (e.offsetX || e.offsetX == 0) {
+            mouse.x = e.offsetX - canvas.offsetLeft;
+            mouse.y = e.offsetY - canvas.offsetTop;
+        }
+        stage.clearRect(0, 0, puzzleWidth, puzzleHeight);
+        var i;
+        var piece;
+        for (i = 0; i < pieces.length; i++) {
+            piece = pieces[i];
+            if (piece == currentPiece) {
+                continue;
+            }
+            stage.drawImage(img, piece.sx, piece.sy, pieceWidth, pieceHeight, piece.xPos, piece.yPos, pieceWidth, pieceHeight);
+            stage.strokeRect(piece.xPos, piece.yPos, pieceWidth, pieceHeight);
+            if (currentDropPiece == null) {
+                if (mouse.x < piece.xPos || mouse.x > (piece.xPos + pieceWidth) || mouse.y < piece.yPos || mouse.y > (piece.yPos + pieceHeight)) {
+                    //NOT OVER
+                } else {
+                    currentDropPiece = piece;
+                    stage.save();
+                    stage.globalAlpha = .4;
+                    stage.fillStyle = PUZZLEHOVERTINT;
+                    stage.fillRect(currentDropPiece.xPos, currentDropPiece.yPos, pieceWidth, pieceHeight);
+                    stage.restore();
+                }
+            }
+        }
+        stage.save();
+        stage.globalAlpha = .6;
+        stage.drawImage(img, currentPiece.sx, currentPiece.sy, pieceWidth, pieceHeight, mouse.x - (pieceWidth / 2), mouse.y - (pieceHeight / 2), pieceWidth, pieceHeight);
+        stage.restore();
+        stage.strokeRect(mouse.x - (pieceWidth / 2), mouse.y - (pieceHeight / 2), pieceWidth, pieceHeight);
+    }
+
+    function pieceDropped(e) {
+        document.onmousemove = null;
+        document.onmouseup = null;
+        if (currentDropPiece != null) {
+            var tmp = {
+                xPos: currentPiece.xPos,
+                yPos: currentPiece.yPos
+            };
+            currentPiece.xPos = currentDropPiece.xPos;
+            currentPiece.yPos = currentDropPiece.yPos;
+            currentDropPiece.xPos = tmp.xPos;
+            currentDropPiece.yPos = tmp.yPos;
+        }
+        resetPuzzleAndCheckWin();
+    }
+
+    function resetPuzzleAndCheckWin() {
+        stage.clearRect(0, 0, puzzleWidth, puzzleHeight);
+        var gameWin = true;
+        var i;
+        var piece;
+        for (i = 0; i < pieces.length; i++) {
+            piece = pieces[i];
+            stage.drawImage(img, piece.sx, piece.sy, pieceWidth, pieceHeight, piece.xPos, piece.yPos, pieceWidth, pieceHeight);
+            stage.strokeRect(piece.xPos, piece.yPos, pieceWidth, pieceHeight);
+            if (piece.xPos != piece.sx || piece.yPos != piece.sy) {
+                gameWin = false;
+            }
+        }
+        if (gameWin) {
+            setTimeout(gameOver, 500);
+        }
+    }
+
+    function gameOver() {
+        document.onmousedown = null;
+        document.onmousemove = null;
+        document.onmouseup = null;
+        initPuzzle();
+    }
+
+    function shuffleArray(o) {
+        for (var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+        return o;
     }
 
     window['GameStage6'] = function DesignGame() {
-
-        game = new Phaser.Game(1024, 780, Phaser.AUTO, 'game', {
-            preload: preload,
-            create: create,
-            update: update,
-            render: render
-        });
+        init();
     }
 
 })(window);

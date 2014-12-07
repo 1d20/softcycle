@@ -9,6 +9,9 @@ module.exports =
 	images:
 		src: [src + '/images/**/*.png']
 		dest: dest + '/images'
+	sounds:
+		src: [src + '/sounds/**/*.*']
+		dest: dest + '/sounds'
 	vendors:
 		css:
 			src: [

@@ -54,6 +54,10 @@ gulp.task 'images', ->
     gulp.src config.images.src
         .pipe gulp.dest config.images.dest
 
+gulp.task 'sounds', ->
+    gulp.src config.sounds.src
+        .pipe gulp.dest config.sounds.dest
+
 gulp.task 'watch', ->
     gulp.watch config.vendors.js.src, ['vendors:js']
     gulp.watch config.vendors.css.src, ['vendors:css']
@@ -71,6 +75,7 @@ gulp.task 'dev', [
     'compass'
     'templates'
     'images'
+    'sounds'
     'watch'
 ]
 
@@ -81,4 +86,5 @@ gulp.task 'default', [
     'compass'
     'templates'
     'images'
+    'sounds'
 ]

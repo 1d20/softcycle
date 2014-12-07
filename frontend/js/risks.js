@@ -11,7 +11,7 @@
     var GameState = function(game) {
         this.MAX_MISSILES_GOOD = 0.7; // number of missiles
         this.MAX_MISSILES_BAD = 0.7; // number of missiles
-        this.MAX_MISSILES = 10;
+        this.MAX_MISSILES = 20;
         this.TIMER_MAX = 60000; //60 sec?
         this.TIMER_NOW = 0;
     };
@@ -21,6 +21,7 @@
         this.game.load.image('good_rocket', '/static/frontend/images/games/risks/r2.png');
         this.game.load.image('bad_rocket', '/static/frontend/images/games/risks/r1.png');
         this.game.load.image('smoke', '/static/frontend/images/games/risks/ss.png');
+        this.game.load.audio('sfx', '/static/frontend/sounds/risks/explode2.wav');
 
         this.game.load.spritesheet('explosion', '/static/frontend/images/games/risks/explode.png', 64, 64);
     };
@@ -30,9 +31,13 @@
         // Set stage background to something sky colored
         this.game.stage.backgroundColor = 0x4488cc;
 
+        fx = game.add.audio('sfx');
+        fx.allowMultiple = true;
+
+        fx.addMarker('explode', 1, 1.0);
         // Create a group to hold the missile
         this.missileGroup = this.game.add.group();
-        console.log(this.missileGroup);
+        //console.log(this.missileGroup);
         // Create a group for explosions
         this.explosionGroup = this.game.add.group();
 
@@ -80,6 +85,8 @@
         var huita = GlobalRating.Rate_Good - GlobalRating.Rate_Bad;
         stateText.text = " Time is up!\n Your Highscore: " + huita.toString();
         stateText.visible = true;
+        this.game.paused = true;
+        
     }
 
     function timeUpd() {
@@ -112,7 +119,7 @@
     GameState.prototype.update = function() {
         if (this.game.time.fps !== 0) {
             var rate = GlobalRating.Rate_Good - GlobalRating.Rate_Bad;
-            console.log(GlobalRating.Rate_Good, GlobalRating.Rate_Bad);
+            //console.log(GlobalRating.Rate_Good, GlobalRating.Rate_Bad);
             this.fpsText.setText('Highscore: ' + rate);
             updateTimer(this);
         }
@@ -148,9 +155,13 @@
                     GlobalRating.Rate_Good++;
                 else
                     GlobalRating.Rate_Bad++;
-                console.log('forEachAlive', GlobalRating.Rate_Good, GlobalRating.Rate_Bad);
+                fx.play('explode');
+                //console.log('forEachAlive', GlobalRating.Rate_Good, GlobalRating.Rate_Bad);
             }
         }, this);
+
+        if(stateText.visible == true) 
+            game.destroy();
     };
 
     // Try to get a missile from the missileGroup
@@ -226,7 +237,7 @@
     var Missile = function(game, type, x, y) {
         this.game = game;
         this.is_good = type;
-        console.log('Missile', this.is_good);
+        //console.log('Missile', this.is_good);
         if (this.is_good) {
             Phaser.Sprite.call(this, game, x, y, 'good_rocket');
         } else {
@@ -243,7 +254,7 @@
         this.TURN_RATE = 5; // turn rate in degrees/frame
         this.WOBBLE_LIMIT = 15; // degrees
         this.WOBBLE_SPEED = 250; // milliseconds
-        this.SMOKE_LIFETIME = 3000; // milliseconds
+        this.SMOKE_LIFETIME = 6000; // milliseconds
         this.AVOID_DISTANCE = 60; // pixels
 
         // Create a variable called wobble that tweens back and forth between

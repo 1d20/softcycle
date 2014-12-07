@@ -1,9 +1,10 @@
 (function(window) {
+    var $scope;
     var game;
-    var result = null;
+    var gameFinished;
     var Config = {
         gravity: 400,
-        timerMax: 60000, //60sec
+        timerMax: 10000, //60sec
         maxCount: {
             budget: 10,
             time: 10,
@@ -195,11 +196,15 @@
     };
 
     function timeIsOut() {
+        window['GameStage3'].game.result = Config.got.budget + Config.got.time + Config.got.staff - Config.got.problem;
+        window['GameStage3'].game.finished = true;
+        $scope.$digest();
+
+        gameFinished();
         
         this.stateText.text = " Time is up!\n Your Highscore: " +"\n Budget: " + Config.got.budget + "\n Time: " + Config.got.time + "\n Staff: " + Config.got.staff+"\n Problems: " + Config.got.problem;
         this.stateText.visible = true;
-        game.paused = true;   
-        result = Config.got;
+        game.paused = true;
     }
 
     function updateTimer(game) {
@@ -489,11 +494,17 @@
     };
 
     // Setup game
-    window['GameStage3'] = function GameStage3() {
-        game = new Phaser.Game(1200, 600, Phaser.AUTO, 'game');
-        game.state.add('game', GameState, true);
-
-        return Config.got;
+    window['GameStage3'] = {
+        init: function GameStage3(scope, finish) {
+            game = new Phaser.Game(1200, 600, Phaser.AUTO, 'game');
+            game.state.add('game', GameState, true);
+            $scope = scope;
+            gameFinished = finish;
+        },
+        game: {
+            result: 0,
+            finished: false
+        }
     };
 
 })(window);

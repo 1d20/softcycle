@@ -21,6 +21,14 @@ def positions(request):
 
 
 @result_parse
+def position(request, position_id):
+    try:
+        return core_models.Position.get_json_position(position_id), 200
+    except:
+        return {"error": "wrong id"}, 400
+
+
+@result_parse
 def stage(request, position_id):
     positions = core_models.Position.objects.filter(id=position_id)
     position = positions[0]

@@ -54,6 +54,15 @@ class Position(models.Model):
             })
         return result
 
+    @staticmethod
+    def get_json_position(position_id):
+        position = Position.objects.get(id=position_id)
+        return {
+            "id": position.id,
+            "title": position.title,
+            "description": position.description,
+        }
+
     def __unicode__(self):
         return str(self.id) + " - " + self.title
 

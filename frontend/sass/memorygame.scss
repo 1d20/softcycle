@@ -1,0 +1,185 @@
+.playfield-wrapper {
+    display: inline-block;
+    padding: 0;
+    opacity: 1;
+    margin: 20px 0 0;
+    position: relative
+}
+
+.win-text {
+    color: orange;
+    font-size: 100px;
+    font-weight: bold;
+    height: 100%;
+    left: 0;
+    margin-top: -50px;
+    position: absolute;
+    top: 50%;
+    width: 100%
+}
+
+/* Card layout */
+
+.play-field, .card {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+}
+
+.play-field {
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse;
+    opacity: 1
+}
+
+.play-field td {
+    padding: 5px;
+}
+
+.card {
+    width: 80px;
+    height: 80px;
+    font-size: 64px;
+    line-height: 70px;
+    cursor: default;
+}
+
+.flipper {
+    position: relative;
+    border: solid 1px #aaa;
+    border-radius: 5px;
+    background-color: #ccc;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    box-shadow: 1px 1px 3px 1px #ccc;
+    opacity: 1;
+
+}
+
+.face {
+    border: solid 1px #aaa;
+    border-radius: 3px;
+    background-color: #fff;
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    box-shadow: inset 0px 0px 4px #aaa;
+    margin: 4px;
+}
+
+.front {
+    opacity: 0;
+    color: #2B54BF;
+    text-shadow: 1px 1px 1px rgba(255,255,255,1);
+}
+
+.back {
+    opacity: 1;
+    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 5px, rgba(255,0,0,.5) 6px, rgba(255,0,0,.5) 6px, rgba(255,255,255,.1) 7px),repeating-linear-gradient(135deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 5px, rgba(255,0,0,.5) 6px, rgba(255,0,0,.5) 6px, rgba(255,255,255,.1) 7px);
+    background-image: -webkit-repeating-linear-gradient(45deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 5px, rgba(255,0,0,.5) 6px, rgba(255,0,0,.5) 6px, rgba(255,255,255,.1) 7px),-webkit-repeating-linear-gradient(135deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 5px, rgba(255,0,0,.5) 6px, rgba(255,0,0,.5) 6px, rgba(255,255,255,.1) 7px);
+}
+
+.clicks {
+    position: absolute;
+    right: 3px;
+    bottom: 2px;
+    color: #777;
+    font: bold 11px Arial
+}
+
+/* Card animation */
+
+.card {
+    perspective: 100;
+    -webkit-perspective: 100;
+    -moz-perspective: 100;
+}
+
+.flipper {
+    transform-style: preserve-3d;
+    transition: transform 0.15s linear;
+    -webkit-transform-style: preserve-3d;
+    -webkit-transition: -webkit-transform 0.15s linear;
+}
+
+.face {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transition: opacity 0.15s linear;
+    -webkit-transition: opacity 0.15s linear;
+}
+
+.flipfront {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    box-shadow: -1px 1px 3px 1px #ccc;
+}
+
+.flipback {
+    transform: rotateY(0deg);
+    -webkit-transform: rotateY(0deg);
+}
+
+.front {
+    transform: rotateY(-180deg);
+    -webkit-transform: rotateY(-180deg);
+}
+
+@-moz-keyframes pulse {
+    from {
+        background-color: #fff;
+    }
+    to {
+        background-color: orange;
+    }
+}
+
+@-webkit-keyframes pulse {
+    from {
+        background-color: #fff;
+    }
+    to {
+        background-color: orange;
+    }
+}
+
+@keyframes pulse {
+    from {
+        background-color: #fff;
+    }
+    to {
+        background-color: orange;
+    }
+}
+
+.pulse {
+    -moz-animation: pulse 0.2s ease-in-out 5 alternate;
+    -webkit-animation: pulse 0.2s ease-in-out 5 alternate;
+    animation: pulse 0.2s ease-in-out 5 alternate;
+}
+
+.play-field.win td .flipper {
+    -webkit-transition: opacity 0.5s ease 1.5s;
+    transition: opacity 0.5s ease 1.5s;
+    opacity: 1 !important
+}
+
+.win-text {
+    opacity: 0;
+    z-index: -1;
+    font-size: 0;
+    margin-top: 0;
+    text-shadow: -1px -1px #C18005, 1px -1px #C18005, -1px 1px #C18005, 1px 1px #C18005;
+    -webkit-transition: all 1.5s ease 0.5s;
+    transition: all 1.5s ease 0.5s;
+}
+
+.playfield-wrapper.win .win-text {
+    font-size: 100px;
+    opacity: 1;
+    z-index: 1;
+    margin-top: -50px;
+}

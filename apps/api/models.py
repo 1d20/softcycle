@@ -23,11 +23,9 @@ def update_waterfall(user):
         profile = user.user_profile
         print ">"
         print user.user_profile.get_user_position() == position
-        print len(Score.objects.filter(user=user, position_id=position - 1)) == 1
         print profile.waterfall_level < waterfall_level
 
         if user.user_profile.get_user_position() == position and \
-                len(Score.objects.filter(user=user, position_id=position - 1)) == 1 and \
                 profile.waterfall_level < waterfall_level:
             old_score = user.user_profile.get_user_score()
             new_score = int(float(old_score) * rate)

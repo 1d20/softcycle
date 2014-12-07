@@ -17,6 +17,7 @@ module.exports =
 			src: [
 				bower + '/bootstrap/dist/css/bootstrap.min.css'
 				bower + '/font-awesome/css/font-awesome.min.css'
+				bower + '/animate.css/animate.min.css'
 			]
 			dest: dest + '/css'
 		fonts:
@@ -37,6 +38,11 @@ module.exports =
 			src + '/js/**/*.js'
 		]
 		dest: dest + '/js'
+	fonts:
+		src: [
+			src + '/fonts/**/*.*'
+		]
+		dest: dest + '/fonts'
 	coffee:
 		src: [
 			src + '/coffee/soft.controllers.coffee'

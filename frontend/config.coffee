@@ -17,6 +17,7 @@ module.exports =
 			src: [
 				bower + '/bootstrap/dist/css/bootstrap.min.css'
 				bower + '/font-awesome/css/font-awesome.min.css'
+				bower + '/animate.css/animate.min.css'
 			]
 			dest: dest + '/css'
 		fonts:

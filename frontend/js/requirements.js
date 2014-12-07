@@ -314,6 +314,8 @@
                 }
             };
 
+        playfieldWrapper.classList.add('playfield-wrapper');
+
         if ((rows * cols) / matches > cardsList.length) {
             throw ('There are not enough cards to display the playing field');
         } else if ((rows * cols) % matches !== 0) {
@@ -335,7 +337,7 @@
 
     var MemoryGame = function(evt) {
         "use strict";
-        var lvlNum = 0,
+        var lvlNum = 2,
             // info = document.getElementById('game-info'),
             // lvlCtrls = document.getElementById('levels'),
             lvls = [{

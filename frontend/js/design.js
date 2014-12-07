@@ -235,7 +235,7 @@
         return o;
     }
 
-    window['GameStage6'] = function DesignGame() {
+    window['GameStage5'] = function DesignGame() {
         init();
     }
 

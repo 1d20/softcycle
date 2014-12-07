@@ -82,6 +82,24 @@ class Score(models.Model):
     score = models.IntegerField()
     date = models.DateTimeField()
 
+    @staticmethod
+    def get_user_position_json(position, user):
+        scores = Score.objects.filter(
+            position=position, user=user).order_by("-score")
+        result = {}
+        scores_json = []
+        for score in scores:
+            scores_json.append({
+                "score": score.score,
+                "date": str(score.date),
+            })
+        result["scores"] = scores_json
+        if len(scores) != 0:
+            result["max_score"] = scores_json[0]
+        else:
+            result["max_score"] = None
+        return result
+
     def __unicode__(self):
         return str(self.position) + ": " + self.user.username + ": " + str(self.score)
 

@@ -20,9 +20,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'nve3@n28%e6d1v4+i&vt07fcq%a(@(le!(vw$^5dc-nodz)#71'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -89,6 +86,7 @@ WSGI_APPLICATION = 'source.wsgi.application'
 try:
     from local_settings import *
 except:
+    # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
     DATABASES = {
         'default': {

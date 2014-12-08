@@ -15,7 +15,7 @@
 
     <div ng-repeat="s in home.states" class="step disabled step{$ $index + 1 $}">
         <figure><i class="fa {$ home.icons[$index] $}"></i></figure>
-        <a data-toggle="modal" data-target="#myModal{$ s.id $}">{$ s.title $}</a>
+        <a ng-click="home.show(s)" style="cursor: pointer;">{$ s.title $}</a>
     </div>
 </section>
 
@@ -30,7 +30,7 @@
         <p>{$ s.description $}</p>
       </div>
       <div class="modal-footer">
-        <a href="/#/stage/{$ s.id $}" class="btn btn-primary">Challenge</a>
+        <a ng-click="home.go(s)" class="btn btn-primary">Challenge</a>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

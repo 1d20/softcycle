@@ -12,7 +12,7 @@ def profile(request):
     if request.user.is_authenticated():
         return models.get_json_user_profile(request), 200
     else:
-        return {"error": "no authenticated"}, 400
+        return {"error": "no authenticated"}, 401
 
 
 @result_parse
@@ -46,7 +46,7 @@ def stage(request, position_id):
     positions = core_models.Position.objects.filter(id=position_id)
     position = positions[0]
     if not request.user.is_authenticated():
-        return {"error": "request without user"}, 400
+        return {"error": "no authenticated"}, 401
     if len(positions) == 0:
         return {"error": "wrong stage"}, 400
 

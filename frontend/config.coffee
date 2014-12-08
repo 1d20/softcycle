@@ -28,9 +28,9 @@ module.exports =
 		js:
 			src: [
 				bower + '/jquery/dist/jquery.js'
-				bower + '/bootstrap/dist/js/bootstrap.min.js'
 				bower + '/angular/angular.js'
 				bower + '/angular-route/angular-route.js'
+				bower + '/angular-bootstrap/ui-bootstrap-tpls.js'
 				bower + '/phaser-official/build/phaser.js'
 			]
 			dest: dest + '/js'

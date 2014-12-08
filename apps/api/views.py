@@ -12,7 +12,7 @@ def profile(request):
     if request.user.is_authenticated():
         return models.get_json_user_profile(request), 200
     else:
-        return {"error": "no authenticated"}, 400
+        return {"error": "no authenticated"}, 401
 
 
 @result_parse
@@ -29,11 +29,24 @@ def position(request, position_id):
 
 
 @result_parse
+def highscores(request):
+    return core_models.Score.get_json_highscores(), 200
+
+
+@result_parse
+def highscore(request, position_id):
+    try:
+        return core_models.Score.get_json_highscore(position_id), 200
+    except:
+        return {"error": "wrong id"}, 400
+
+
+@result_parse
 def stage(request, position_id):
     positions = core_models.Position.objects.filter(id=position_id)
     position = positions[0]
     if not request.user.is_authenticated():
-        return {"error": "request without user"}, 400
+        return {"error": "no authenticated"}, 401
     if len(positions) == 0:
         return {"error": "wrong stage"}, 400
 

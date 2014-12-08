@@ -1,5 +1,10 @@
 (function(window) {
 
+    var $scope;
+    var finishGame;
+
+    var time;
+
     const PUZZLEDIFFICULTY = 4;
     const PUZZLEHOVERTINT = '#009900';
 
@@ -17,13 +22,37 @@
 
     var mouse;
 
-    function init() {
+    function init(scope, finish) {
+        console.log('init called');
+        $scope = scope;
+        finishGame = finish;
         img = new Image();
         img.addEventListener('load', onImage, false);
         img.src = '/static/frontend/images/games/design/site1.png';
     }
 
+    function destroy() {
+
+    }
+
+    /*function getOffsetSum(elem) {
+        var top = 0,
+            left = 0
+        while (elem) {
+            top = top + parseFloat(elem.offsetTop)
+            left = left + parseFloat(elem.offsetLeft)
+            elem = elem.offsetParent
+        }
+
+        return {
+            top: Math.round(top),
+            left: Math.round(left)
+        }
+    }*/
+
+
     function onImage(e) {
+        //console.log('on Image called');
         pieceWidth = Math.floor(img.width / PUZZLEDIFFICULTY)
         pieceHeight = Math.floor(img.height / PUZZLEDIFFICULTY)
         puzzleWidth = pieceWidth * PUZZLEDIFFICULTY;
@@ -43,6 +72,7 @@
     }
 
     function initPuzzle() {
+        //console.log('initPuzzle called');
         pieces = [];
         mouse = {
             x: 0,
@@ -83,7 +113,7 @@
                 yPos += pieceHeight;
             }
         }
-        document.onmousedown = shufflePuzzle;
+        canvas.onmousedown = shufflePuzzle;
     }
 
     function shufflePuzzle(e) {
@@ -113,10 +143,13 @@
                 yPos += pieceHeight;
             }
         }
-        document.onmousedown = onPuzzleClick;
+        canvas.onmousedown = onPuzzleClick;
+        time = new Date();
     }
 
     function onPuzzleClick(e) {
+
+        console.log(e.layerX, e.layerY);
         if (e.layerX || e.layerX == 0) {
             mouse.x = e.layerX - canvas.offsetLeft;
             mouse.y = e.layerY - canvas.offsetTop;
@@ -124,24 +157,28 @@
             mouse.x = e.offsetX - canvas.offsetLeft;
             mouse.y = e.offsetY - canvas.offsetTop;
         }
+        //console.log(getOffsetSum(canvas));
         currentPiece = checkPieceClicked();
+        console.log(currentPiece);
         if (currentPiece != null) {
             stage.clearRect(currentPiece.xPos, currentPiece.yPos, pieceWidth, pieceHeight);
             stage.save();
             stage.globalAlpha = .9;
             stage.drawImage(img, currentPiece.sx, currentPiece.sy, pieceWidth, pieceHeight, mouse.x - (pieceWidth / 2), mouse.y - (pieceHeight / 2), pieceWidth, pieceHeight);
             stage.restore();
-            document.onmousemove = updatePuzzle;
-            document.onmouseup = pieceDropped;
+            canvas.onmousemove = updatePuzzle;
+            canvas.onmouseup = pieceDropped;
         }
     }
 
     function checkPieceClicked() {
         var i;
         var piece;
+        //console.log(pieces);
         for (i = 0; i < pieces.length; i++) {
             piece = pieces[i];
-            if (mouse.x < piece.xPos || mouse.x > (piece.xPos + pieceWidth) || mouse.y < piece.yPos || mouse.y > (piece.yPos + pieceHeight)) {
+            if (mouse.x < piece.xPos || mouse.x > (piece.xPos + pieceWidth) ||
+                mouse.y < piece.yPos || mouse.y > (piece.yPos + pieceHeight)) {
                 //PIECE NOT HIT
             } else {
                 return piece;
@@ -151,13 +188,14 @@
     }
 
     function updatePuzzle(e) {
+        //console.log(e);
         currentDropPiece = null;
         if (e.layerX || e.layerX == 0) {
-            mouse.x = e.layerX - canvas.offsetLeft;
-            mouse.y = e.layerY - canvas.offsetTop;
+            mouse.x = e.layerX - canvas.offsetLeft ;
+            mouse.y = e.layerY - canvas.offsetTop ;
         } else if (e.offsetX || e.offsetX == 0) {
-            mouse.x = e.offsetX - canvas.offsetLeft;
-            mouse.y = e.offsetY - canvas.offsetTop;
+            mouse.x = e.offsetX - canvas.offsetLeft ;
+            mouse.y = e.offsetY - canvas.offsetTop ;
         }
         stage.clearRect(0, 0, puzzleWidth, puzzleHeight);
         var i;
@@ -190,8 +228,8 @@
     }
 
     function pieceDropped(e) {
-        document.onmousemove = null;
-        document.onmouseup = null;
+        canvas.onmousemove = null;
+        canvas.onmouseup = null;
         if (currentDropPiece != null) {
             var tmp = {
                 xPos: currentPiece.xPos,
@@ -224,10 +262,17 @@
     }
 
     function gameOver() {
-        document.onmousedown = null;
-        document.onmousemove = null;
-        document.onmouseup = null;
-        initPuzzle();
+        canvas.onmousedown = null;
+        canvas.onmousemove = null;
+        canvas.onmouseup = null;
+        // initPuzzle();
+
+        var timeSpend = new Date();
+        var score = 1200 - ~~((timeSpend - time) / 100);
+        window['GameStage5'].game.score = score;
+        window['GameStage5'].game.finished = true;
+        $scope.$digest();
+        finishGame();
     }
 
     function shuffleArray(o) {
@@ -235,8 +280,14 @@
         return o;
     }
 
-    window['GameStage5'] = function DesignGame() {
-        init();
-    }
+    window['GameStage5'] = {
+        init: init,
+        destroy: destroy,
+        game: {
+            result: 0,
+            finished: false
+        },
+        rules: "Be creative and design your project!"
+    };
 
 })(window);

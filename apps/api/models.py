@@ -21,10 +21,6 @@ def get_json_user_profile(request):
 def update_waterfall(user):
     def waterfall_position(position, waterfall_level, rate=1.30):
         profile = user.user_profile
-        print ">"
-        print user.user_profile.get_user_position() == position
-        print profile.waterfall_level < waterfall_level
-
         if user.user_profile.get_user_position() == position and \
                 profile.waterfall_level < waterfall_level:
             old_score = user.user_profile.get_user_score()

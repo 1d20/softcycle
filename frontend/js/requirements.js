@@ -1,12 +1,11 @@
 (function(window) {
-    /**
-     * Unifies event handling across browsers
-     *
-     * - Allows registering and unregistering of event handlers
-     * - Injects event object and involved DOM element to listener
-     *
-     * @author Mark Rolich <mark.rolich@gmail.com>
-     */
+    
+    var game;
+    var $scope;
+    var evt;
+    var gameFinished;
+    var res;
+
     var Event = function() {
         "use strict";
         this.attach = function(evtName, element, listener, capture) {
@@ -389,6 +388,11 @@
                 currentLvl = new Level(evt, lvl.rows, lvl.cols, lvl.matches);
                 currentLvl.onwin = function(clicks, prc) {
                     // lvl = 
+                    res.score = 1200 * ( prc/100 );
+                    console.log(game);
+
+                    res.finished = true;
+                    gameFinished();
                     console.log('You\'ve found all matches in <strong>' + clicks + '</strong> clicks with <strong>' + prc + '%</strong> efficiency')
                 };
 
@@ -398,9 +402,21 @@
         start();
     };
 
-    window['GameStage4'] = function RequrementsGame() {
-        var evt = new Event(),
-            game = new MemoryGame(evt);
+
+    window['GameStage4'] = {
+        init: function GameStage4(scope, finish) {
+            evt = new Event();
+            game =  new MemoryGame(evt);
+            $scope = scope;
+            gameFinished = finish;
+        },
+        game: {
+            score: 0,
+            finished: false
+        },
+        rules: "Try to find out all the requirements for your project! It's quite painstaking and borring, but one of the most important steps!"
     };
+
+    res = window['GameStage4'].game;
 
 })(window);

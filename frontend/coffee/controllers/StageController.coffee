@@ -21,6 +21,7 @@ StageController = ($log, $scope, $http, $routeParams, $window, stage, stats) ->
 				console.log data
 
 	self.init = ->
+		console.log 'init'
 		$window["GameStage#{stageId}"].init $scope, gameFinished
 		
 	self

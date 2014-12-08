@@ -286,7 +286,8 @@
         game: {
             result: 0,
             finished: false
-        }
+        },
+        rules: "Be creative and design your project!"
     };
 
 })(window);

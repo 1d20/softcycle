@@ -505,7 +505,8 @@
         game: {
             score: 0,
             finished: false
-        }
+        },
+        rules: "You have to find some staff, money and time!! But there are some problems...."
     };
 
 })(window);

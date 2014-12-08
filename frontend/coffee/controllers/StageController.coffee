@@ -1,13 +1,14 @@
-StageController = ($log, $scope, $http, $routeParams, $window, stage, stats) ->
+StageController = ($location, $scope, $http, $routeParams, $window, stage, stats) ->
 	self = @
 
-	stageId = $routeParams.id
+	stageId = parseInt($routeParams.id)
 
 	scoreTransform = (score) ->
 		if(score)
 			score: score.score
 			date: new Date score.date
 
+	self.stageId = stageId
 	self.stage = stage.data
 	self.stats = stats.data
 	self.title = stage.data.title;
@@ -16,8 +17,8 @@ StageController = ($log, $scope, $http, $routeParams, $window, stage, stats) ->
 	self.max_score = scoreTransform stats.data.max_score
 	self.scores = stats.data.scores.map scoreTransform
 
-	self.game = $window["GameStage#{stageId}"].game
-
+	if stageId < 8
+		self.game = $window["GameStage#{stageId}"].game
 
 	gameFinished = ->
 		$http.post "/api/stage/#{stageId}/", {score: self.game.score}
@@ -29,15 +30,21 @@ StageController = ($log, $scope, $http, $routeParams, $window, stage, stats) ->
 
 		$window["GameStage#{stageId}"].destroy()
 
+		$scope.$emit('updateStats', true);
+
 	self.init = ->
-		console.log 'init'
 		$window["GameStage#{stageId}"].init $scope, gameFinished
+
+	self.next = ->
+		if stageId < 10
+			next = stageId + 1
+			$location.path "/stage/#{next}"
 		
 	self
 
 angular.module 'soft.controllers.StageController', []
 	.controller 'StageController', [
-		'$log', 
+		'$location', 
 		'$scope', 
 		'$http', 
 		'$routeParams', 

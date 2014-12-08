@@ -501,6 +501,7 @@
             $scope = scope;
             gameFinished = finish;
         },
+        destroy: function destroy(){},
         game: {
             score: 0,
             finished: false

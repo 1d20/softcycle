@@ -1,10 +1,12 @@
-<h1>{$ stage.title $}</h1>
-<blockquote>{$ stage.description $}</blockquote>
-<h3 ng-if="stage.max_score">Max: {$ stage.max_score.score $} at {$ stage.max_score.date | date $} </h3>
-<h2>Highscores</h2>
-<ul ng-if="stage.scores.length">
-	<li ng-repeat="s in stage.scores">{$ s.score $} at {$ s.date | date $}</li>
-</ul>
-<button class="btn btn-primary" ng-click="stage.init()">Start!</button>
-<!-- <pre class="well">{$ stage | json $}</pre> -->
-<div id="game"></div>
+<div class="stage-wrapper container">
+	<h1 class="page-header">{$ stage.title $}</h1>
+	<blockquote><p>{$ stage.description $}<p></blockquote>
+	<h3 ng-if="stage.max_score">Max: {$ stage.max_score.score $} at {$ stage.max_score.date | date $} </h3>
+	<h2>Highscores</h2>
+	<ul ng-if="stage.scores.length">
+		<li ng-repeat="s in stage.scores">{$ s.score $} at {$ s.date | date $}</li>
+	</ul>
+	<button class="btn btn-primary" ng-click="stage.init()">Start!</button>
+	<!-- <pre class="well">{$ stage | json $}</pre> -->
+	<div id="game"></div>
+</div>

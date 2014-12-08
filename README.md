@@ -11,9 +11,9 @@ This is a project with games. Main idea - introduce SOFTWARE development(not a p
 
 ## Screenshots
 
-![Screenshot]( http://s3.amazonaws.com/awesome_screenshot/6697150?AWSAccessKeyId=0R7FMW7AXRVCYMAPTPR2&Expires=1418024571&Signature=53y4zAJTB823Q%2BjJ%2FllcerUdpvk%3D "Screenshot")
-![Screenshot]( http://s3.amazonaws.com/awesome_screenshot/6697170?AWSAccessKeyId=0R7FMW7AXRVCYMAPTPR2&Expires=1418024398&Signature=Ek0oBKrSPBJtsQhrsET329fIJ74%3D "Screenshot")
-![Screenshot]( http://s3.amazonaws.com/awesome_screenshot/6697203?AWSAccessKeyId=0R7FMW7AXRVCYMAPTPR2&Expires=1418024499&Signature=begYFYH4bXPcLLEOwTjekVB08js%3D "Screenshot")
+![Screenshot](http://1d20dev.com/wp-content/uploads/2014/12/111.png "Screenshot")
+![Screenshot](http://1d20dev.com/wp-content/uploads/2014/12/11.png "Screenshot")
+![Screenshot](http://1d20dev.com/wp-content/uploads/2014/12/1.png "Screenshot")
 
 ## APIs used
 

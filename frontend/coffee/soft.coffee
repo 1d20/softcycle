@@ -14,24 +14,33 @@ routerConfig = ($routeProvider) ->
             templateUrl: base + 'home/index.html'
             controller: 'HomeController'
             controllerAs: 'home'
+            resolve: 
+                logged: ($http)-> 
+                    $http.get '/api/profile/'
+                        .then(
+                            (response) -> response
+                            (reason) -> 
+                                if reason.status == 400 then location.href = '/login/google-oauth2/'
+                        )
+
         .when '/stage/:id',
             templateUrl: base + 'stages/stage.html'
             controller: 'StageController'
             controllerAs: 'stage'
             resolve:
                 stage: ['Stage', '$route', '$location', (Stage, $route, $location) ->
-                    Stage.getStage $route.current.params.id
-                        .success (data) ->
-                            data
-                        .error (data) ->
-                            # $location.path '/'
+                    Stage.getStage $route.current.params.id 
+                        .then(
+                            (response) -> response
+                            (reason) -> if reason.status == 400 then location.href = '/login/google-oauth2/'
+                        )
                 ]
                 stats: ['Stage', '$route', (Stage, $route) ->
                     Stage.getStats $route.current.params.id
-                        .success (data) ->
-                            data
-                        .error (data) ->
-                            # $location.path '/'
+                        .then(
+                            (response) -> response
+                            (reason) -> if reason.status == 400 then location.href = '/login/google-oauth2/'
+                        )
                 ]
         .otherwise
             redirectTo: '/'

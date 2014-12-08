@@ -112,7 +112,8 @@
 $base-color: #444;
 $hover-color: #000;
 $height-footer: 110px;
-$nice-green: #0fbe7c;
+$border-color: #DB6661;
+
 
 $bg-footer: #252525;
 $current-hover: #f4645f;
@@ -120,16 +121,17 @@ $button-color: #ad4844;
 $button-hover:  #eb6363;
 
 $color-in-footer: #d5d5d5;
-$hover-in-footer: 999;
+$hover-in-footer: #999;
 $font-open-sans: 'Open Sans', sans-serif;
 $font-pacifico: 'Pacifico', Sans-serif;
 $color-soc-icons: #fff;
-$bg-hover: #fff;
 $tw-hover: #428bca;
 $git-hover: #000;
 $fb-hover: #3b5998;
 $linkedin-hover: #1b86bc;
 $vk-hover: #587a9f;
+
+$in-main: #ff736d;
 
 /*#Typography
 ------------------------------------------------------------------------------- */
@@ -139,18 +141,18 @@ $vk-hover: #587a9f;
 /* Layout blocks
 ------------------------------------------------------------------------------- */
 body {
-	font-size: 16px !important;  /*delete this */
-	font-family: $font-open-sans !important; /*delete this*/
+	font-size: 16px ;
+	font-family: $font-open-sans;
 	position: relative;
 	height: 100%;
 	min-height: 100%;
 	min-width: 1200px;
 	color: $base-color;
-     background:  #f3726d;
      background-size: cover;
      width: 100%;
      height: 100%;
-     overflow-y: hidden;
+     overflow-x: hidden;
+     background: url('../images/bg/back-1d20_1.png') 309px -313px no-repeat;
 
     }
 html {
@@ -196,49 +198,86 @@ a:hover {
 }
 .logo {
     font-family: $font-pacifico;
-    font-size: 44px;
+    font-size: 53px;
     text-align: center;
     -webkit-animation: bounceInUp 1s;
-}
+    animation: bounceInUp 1s;
+   }
 .logo a{
     display: block;
     width: 100%;
     height: 100%;
-    color: #fff;
+    color: $in-main;
     text-decoration: none;
     width: 100%;
-
+}
+.intro {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    top: 87px;
+    font-size: 37px;
+    font-family: $font-pacifico;
+    color: $button-color;
+    -webkit-animation: bounceInUp 1.5s;
+    animation: bounceInUp 1.5s;
+    cursor: pointer;
+}
+.intro a{
+     color: $button-color;
+     text-decoration: none;
 }
 .wrap-steps {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
 	display: flex;
-	width: 100%;
 	margin-top: 550px;
 	position: relative;
-	max-width: 1300px;
+	width: 1300px;
+	padding: 0;
 }
 .content {
     padding: 0 0 50px 0;
-    width: 1200px;
+    width: 1300px;
     margin: 0 auto;
 }
 .step {
-	justify-content: space-between;
+     -webkit-box-pack: justify;
+     -moz-box-pack: justify;
+     -ms-flex-pack: justify;
+     -webkit-justify-content: space-between;
+    justify-content: space-between;
 	width: 10%;
 	font-size: 13px;
 	color: $bg-footer;
 	position: relative;
-  @include transition(all,0.5s, ease-in-out);
+    @include transition(all,0.5s, ease-in-out);
+    cursor: pointer;
 }
 
 @for $i from 1 through 10 {
   .step#{$i} {
     -webkit-animation: zoomInDown 2s + ($i*0.5);
+    animation: zoomInDown 2s + ($i*0.5);
   }
 }
 
 .step.disabled:hover {
 	opacity: 1; 
-    scale: 1.25;
+    transform: scale(1.1);
+}
+.step9,
+.step10,
+.step8,
+.step7,
+.step6{
+    padding: 0 0 0 5px;
+}
+.step6{
+    padding: 0 0 0 5px;
 }
 .step10 {
     top: -500px;
@@ -257,6 +296,8 @@ a:hover {
 }
 .step5 {
     top: -250px;
+    left: 4px;
+    padding-top: 14px;
 }
 .step4 {
     top: -200px;
@@ -278,24 +319,26 @@ a:hover {
     width: 100%;
     padding: 10px;
     font-size: 61px;
-    color: #fff;
+    color: $in-main;
 }
 .step  a {
     width: 100%;
     text-align: center;
     display: inline-block;
     text-decoration: none;
-    color: /*$bg-footer;*/ #fff;
+    color: $in-main;
     font-size: 15px;
 }
 .step.disabled {
-    opacity: 0.5;
+    opacity: 0.75;
 }
 .wrap-steps {
-    padding: 0 20px 20px 20px;
+    /*padding: 0 20px 20px 20px;*/
     position: relative;
 }
-.button{
+.button,
+.btn,
+.btn-primary{
     background-color: $button-color;
     display: inline-block;
     padding: 6px 20px 10px;
@@ -306,29 +349,25 @@ a:hover {
     position: relative;
     cursor: pointer;
     border-radius: 2px;
+    text-decoration: none;
+    border: none !important;
 }
+.button:hover{
+    background-color: $button-hover;
+}
+.button:hover,
+.btn:hover,
+.btn-primary:hover,
 .button:hover{
     background-color: $button-hover;
 }
 /* svg
 ------------------------------------------------------------------------------- */
 .squiggle-container {
+    left: -12px;
     position: absolute;
-    top: -519px;
+    top: -501px;
     width: 100%;
-    left: -7px;
-}
-.header.active {
-  border: 1px solid red;
-}
-@keyframes movetextdown {
- 0% {
-    top: -100px;
- }
- 100% {
-    top: 0px;
- }
-
 }
 
 /* Footer
@@ -362,7 +401,7 @@ a:hover {
 }
 .navbar {
     position: absolute;
-    top: 10px;
+    top: 16px;
     right: 20px;
     font: 20px $font-pacifico;
 }
@@ -373,7 +412,7 @@ a:hover {
 .copy {
     font-family: $font-pacifico;
     color: $color-soc-icons;
-    font-size: 29px;
+    font-size: 27px;
     padding: 5px 0;
 }
 .copy a {
@@ -381,14 +420,14 @@ a:hover {
     color: #fff;
     text-decoration: none;
 }
+.copy a:hover {
+    text-decoration: none;
+}
+.page-header {
+    border-bottom: 1px solid $border-color;
+}
 .clearfix {
-    clear: both;
-    height: 119px;
-    width: 100%;
-}
-.footer.active{
-    border: 1px soldi red;
-}
-.main-page {
-    max-width: 1300px;
+  clear: both;
+  height: 119px;
+  width: 100%;
 }

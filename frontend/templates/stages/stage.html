@@ -7,6 +7,7 @@
 		<li ng-repeat="s in stage.scores">{$ s.score $} at {$ s.date | date $}</li>
 	</ul>
 	<button class="btn btn-primary" ng-click="stage.init()">Start!</button>
-	<!-- <pre class="well">{$ stage | json $}</pre> -->
-	<div id="game"></div>
+	<div id="game" style="clear: both; position: relative"></div>
 </div>
+
+<div class="clearfix"></div>

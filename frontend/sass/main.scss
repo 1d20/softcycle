@@ -391,3 +391,17 @@ a:hover {
 .main-page {
     max-width: 1300px;
 }
+
+/* Bootstrap */
+$border-color: #DB6661;
+.page-header {
+  border-bottom: 1px solid $border-color;
+}
+
+blockquote {
+  border-left: 5px solid $border-color;
+}
+
+blockquote, blockquote p {
+  color: #B95854;
+}

@@ -10,8 +10,10 @@
     var filePath = "static/frontend/js/vendors.js";
     var elapsed = 0;
     var interval;
-
-    function init() {
+    var finishGame;
+    function init(scope, finish) {
+        $scope = scope;
+        finishGame = finish;
         conf = window['GameStage6'].game;
         console.log(game,conf);
         $.get(filePath, function(data) {
@@ -19,7 +21,7 @@
             //console.log(data);
             arr = code.split('\n');
 	        wrapper = $('#game');
-            $('#game').append('<div id="state">Score: ' + conf.result +'</div>');
+            $('#game').append('<div id="state">Score: ' + conf.score +'</div>');
             state = $('#state');
 	        $('#game').append('<pre id="precode"></pre>')
 	        appender = $('#precode');
@@ -29,7 +31,7 @@
             setTimeout(endFunc, Time);
             interval = setInterval(function(){
                 var timeel = Time/1000 - elapsed;
-                state.text('Score: ' + conf.result+ ' Time elapsed: ' + timeel);
+                state.text('Score: ' + conf.score+ ' Time elapsed: ' + timeel);
                 console.log(++elapsed);
             },1000);
         });
@@ -46,8 +48,9 @@
         conf.finished = true;
         $('html, body').finish();
         $('html, body').animate({ scrollTop: 0 }, 1000);
-        state.text('Congrats! Your Score: ' + conf.result);
+        state.text('Congrats! Your Score: ' + conf.score);
         clearInterval(interval);
+        finishGame();
     }
 
     function keyListener(e) {
@@ -58,7 +61,7 @@
 
     function write() {
         
-        conf.result++;
+        conf.score++;
         var word = '<br>' + codeToWrite.shift();
         appender.append(word);
         //console.log(wrapper, word);
@@ -69,7 +72,7 @@
         init: init,
         destroy: destroy,
         game: {
-            result: 0,
+            score: 0,
             finished: false
         }
     };

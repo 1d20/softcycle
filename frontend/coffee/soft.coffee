@@ -20,7 +20,7 @@ routerConfig = ($routeProvider) ->
                         .then(
                             (response) -> response
                             (reason) -> 
-                                if reason.status == 401 then location.href = '/login/google-oauth2/'
+                                # if reason.status == 401 then location.href = '/login/google-oauth2/'
                         )
 
         .when '/stage/:id',
@@ -32,14 +32,14 @@ routerConfig = ($routeProvider) ->
                     Stage.getStage $route.current.params.id 
                         .then(
                             (response) -> response
-                            (reason) -> if reason.status == 401 then location.href = '/login/google-oauth2/'
+                            (reason) -> if reason.status == 401 then $location.path '/'
                         )
                 ]
-                stats: ['Stage', '$route', (Stage, $route) ->
+                stats: ['Stage', '$route', '$location', (Stage, $route, $location) ->
                     Stage.getStats $route.current.params.id
                         .then(
                             (response) -> response
-                            (reason) -> if reason.status == 401 then location.href = '/login/google-oauth2/'
+                            (reason) -> if reason.status == 401 then $location.path '/'
                         )
                 ]
         .otherwise

@@ -151,8 +151,8 @@
 
         console.log(e.layerX, e.layerY);
         if (e.layerX || e.layerX == 0) {
-            mouse.x = e.layerX - canvas.offsetLeft - 130;
-            mouse.y = e.layerY - canvas.offsetTop - 174;
+            mouse.x = e.layerX - canvas.offsetLeft;
+            mouse.y = e.layerY - canvas.offsetTop;
         } else if (e.offsetX || e.offsetX == 0) {
             mouse.x = e.offsetX - canvas.offsetLeft;
             mouse.y = e.offsetY - canvas.offsetTop;
@@ -191,8 +191,8 @@
         //console.log(e);
         currentDropPiece = null;
         if (e.layerX || e.layerX == 0) {
-            mouse.x = e.layerX - canvas.offsetLeft - 130;
-            mouse.y = e.layerY - canvas.offsetTop - 174;
+            mouse.x = e.layerX - canvas.offsetLeft ;
+            mouse.y = e.layerY - canvas.offsetTop ;
         } else if (e.offsetX || e.offsetX == 0) {
             mouse.x = e.offsetX - canvas.offsetLeft ;
             mouse.y = e.offsetY - canvas.offsetTop ;

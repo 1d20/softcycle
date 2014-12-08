@@ -4,11 +4,15 @@
     var finished;
     var finishGame;
 
-    var GlobalRating = {
-        Rate_Bad: 0,
-        Rate_Good: 0,
-        MISSLE_SPEED: 250
-    };
+    function setGlobalRating() {
+        return {
+            Rate_Bad: 0,
+            Rate_Good: 0,
+            MISSLE_SPEED: 250
+        }
+    }
+
+    var GlobalRating;
 
     var stateText;
 
@@ -398,6 +402,9 @@
     };
 
     function init(scope, finish) {
+        destroy();
+
+        GlobalRating = setGlobalRating();
         game = new Phaser.Game(900, 600, Phaser.AUTO, 'game');
         game.state.add('game', GameState, true);
 
@@ -406,7 +413,9 @@
     };
 
     function destroy() {
-        game.destroy();
+        if (game) {
+            game.destroy();
+        };
     }
 
     window['GameStage2'] = {

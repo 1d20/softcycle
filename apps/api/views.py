@@ -29,6 +29,19 @@ def position(request, position_id):
 
 
 @result_parse
+def highscores(request):
+    return core_models.Score.get_json_highscores(), 200
+
+
+@result_parse
+def highscore(request, position_id):
+    try:
+        return core_models.Score.get_json_highscore(position_id), 200
+    except:
+        return {"error": "wrong id"}, 400
+
+
+@result_parse
 def stage(request, position_id):
     positions = core_models.Position.objects.filter(id=position_id)
     position = positions[0]

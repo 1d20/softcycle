@@ -1,4 +1,4 @@
-HomeController = ($http, Stage) ->
+HomeController = ($http, $location, $modal, Stage) ->
 	self = @
 
 	self.icons = [
@@ -18,9 +18,23 @@ HomeController = ($http, Stage) ->
 		.success (data) ->
 			self.states = data
 
+	self.show = (stage) ->
+		modalInstance = $modal.open {
+			templateUrl: '/static/frontend/templates/modals/stage.html'
+			controller: 'ModalStageController'
+			controllerAs: 'modal'
+			size: 'lg'
+			resolve:
+				stage: ->
+					stage
+		}
+
+		modalInstance.result.then ->
+			$location.path "/stage/#{stage.id}"
+
 	window.testInit()
 
 	self
 
 angular.module 'soft.controllers.HomeController', []
-	.controller 'HomeController', ['$http', 'Stage', HomeController]
+	.controller 'HomeController', ['$http', '$location', '$modal', 'Stage', HomeController]

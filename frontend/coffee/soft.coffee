@@ -42,6 +42,7 @@ customInterpolation = ($interpolateProvider) ->
 
 angular.module 'soft', [
     'ngRoute'
+    'ui.bootstrap'
     'soft.controllers'
     'soft.directives' 
     'soft.filters'

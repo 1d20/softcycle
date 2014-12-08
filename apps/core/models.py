@@ -109,6 +109,53 @@ class Score(models.Model):
             result["max_score"] = None
         return result
 
+    @staticmethod
+    def get_json_highscores():
+        scores = Score.objects.filter().order_by("-score")
+        result = {}
+        scores_json = []
+        for score in scores:
+            scores_json.append({
+                "user": {
+                    "id": score.user.id,
+                    "username": score.user.username,
+                },
+                "position": {
+                    "id": score.position.id,
+                    "title": score.position.title,
+                },
+                "score": score.score,
+                "date": str(score.date),
+            })
+        result["scores"] = scores_json
+        if len(scores) != 0:
+            result["max_score"] = scores_json[0]
+        else:
+            result["max_score"] = None
+        return result
+
+    @staticmethod
+    def get_json_highscore(position_id):
+        scores = Score.objects.filter(
+            position_id=position_id).order_by("-score")
+        result = {}
+        scores_json = []
+        for score in scores:
+            scores_json.append({
+                "user": {
+                    "id": score.user.id,
+                    "username": score.user.username,
+                },
+                "score": score.score,
+                "date": str(score.date),
+            })
+        result["scores"] = scores_json
+        if len(scores) != 0:
+            result["max_score"] = scores_json[0]
+        else:
+            result["max_score"] = None
+        return result
+
     def __unicode__(self):
         return str(self.position) + ": " + self.user.username + ": " + str(self.score)
 

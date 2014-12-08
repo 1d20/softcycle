@@ -192,6 +192,7 @@ a:hover {
 ------------------------------------------------------------------------------- */
 #main-page{
     position: relative;
+    min-height: 100%;
 }
 .logo {
     font-family: $font-pacifico;
@@ -217,6 +218,8 @@ a:hover {
 }
 .content {
     padding: 0 0 50px 0;
+    width: 1200px;
+    margin: 0 auto;
 }
 .step {
 	justify-content: space-between;
@@ -359,7 +362,7 @@ a:hover {
 }
 .navbar {
     position: absolute;
-    top: -37px;
+    top: 10px;
     right: 20px;
     font: 20px $font-pacifico;
 }

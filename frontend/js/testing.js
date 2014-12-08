@@ -1,5 +1,7 @@
 (function(window) {
     var game;
+    var $scope;
+    var finishGame;
 
     var Config = {
         cooldown: 1000, //milisec
@@ -36,7 +38,7 @@
         // Let's make some clouds
         for (var x = -56; x < this.game.width; x += 80) {
             var cloud = this.game.add.image(x, -80, 'cloud');
-            cloud.scale.setTo(2,2); // Make the clouds big
+            cloud.scale.setTo(2, 2); // Make the clouds big
             cloud.tint = 0xcccccc; // Make the clouds dark
             cloud.smoothed = false; // Keeps the sprite pixelated
         }
@@ -47,14 +49,14 @@
         }
 
         // Create a pool of cyclopes
-        var MONSTERS = 100;
+        var MONSTERS = 10;
         this.monsterGroup = this.game.add.group();
         this.monsterGroup.enableBody = true;
         this.monsterGroup.physicsBodyType = Phaser.Physics.ARCADE;
         this.monsterGroup.createMultiple(MONSTERS, 'monster', 0);
 
         // Create a pool of bugs
-        var BAGS = 5;
+        var BAGS = 50;
         this.bugGroup = this.game.add.group();
         this.bugGroup.enableBody = true;
         this.bugGroup.physicsBodyType = Phaser.Physics.ARCADE;
@@ -122,8 +124,8 @@
         //  Set a TimerEvent to occur after 2 seconds
         this.cooldownTimer.loop(Config.cooldown, timeCooldownFn, this);
 
-        
-//this.cooldownTimer.start();
+
+        //this.cooldownTimer.start();
 
         //  Create our Timer
         this.timer = game.time.create(true);
@@ -143,7 +145,7 @@
         stateText.visible = false;
     };
 
-    function timeCooldownFn(){
+    function timeCooldownFn() {
         this.cooldownTimer.paused = true;
         //cooldownText    
     }
@@ -154,8 +156,13 @@
         stateText.text = " Time is up!\n Pathed Code: " + codestat.toString() + "\n Catched Buds: " + bugstat.toString();
         stateText.visible = true;
         this.game.paused = true;
-        
-    }
+
+        window["GameStage7"].game.result = codestat + bugstat;
+        window["GameStage7"].game.finished = true;
+
+        $scope.$digest();
+        finishGame();
+    };
 
 
     function updateTimer(game) {
@@ -180,7 +187,7 @@
 
     }
 
-    function updateCooldown(game){
+    function updateCooldown(game) {
         minutes = Math.floor(game.cooldownTimer.duration.toFixed(0) / 60000) % 60;
 
         seconds = Math.floor(game.cooldownTimer.duration.toFixed(0) / 1000) % 60;
@@ -207,7 +214,7 @@
         updateTimer(this);
 
         updateCooldown(this);
-        
+
         var codestat = Config.pathed.code;
         var bugstat = Config.killed.bugs - Config.pathed.bugs;
         this.highscoreText.setText("Highscore: bugs catched: " + bugstat + '\n            code saved: ' + codestat);
@@ -268,9 +275,9 @@
 
         // Create lightning
         if (this.game.input.activePointer.justPressed(20) && (!this.cooldownTimer.running || this.cooldownTimer.paused)) {
-            if(!this.cooldownTimer.running)
+            if (!this.cooldownTimer.running)
                 this.cooldownTimer.start();
-            if(this.cooldownTimer.paused)
+            if (this.cooldownTimer.paused)
                 this.cooldownTimer.paused = false;
             // Kill monsters within 64 pixels of the strike
             this.monsterGroup.forEachAlive(function(monster) {
@@ -373,7 +380,7 @@
             monster.rotation = 0; // Reset rotation
             monster.frame = 0; // Set animation frame to 0
             monster.anchor.setTo(0.5, 0.5); // Center texture
-            monster.animations.add('walk', [0,1], 2);
+            monster.animations.add('walk', [0, 1], 2);
             monster.animations.play('walk', 6, true);
         }
     };
@@ -382,7 +389,7 @@
         var bug = this.bugGroup.getFirstDead(); // Recycle a dead monster
         if (bug) {
             //this.game.width +
-            var ground_x = this.game.width + Math.round(Math.random()*this.game.width);
+            var ground_x = this.game.width + Math.round(Math.random() * this.game.width);
             //console.log('ground_x', ground_x);
             bug.reset(ground_x, this.game.height - 48); // Position on ground
             bug.revive(); // Set "alive"
@@ -392,7 +399,7 @@
             bug.rotation = 0; // Reset rotation
             bug.frame = 0; // Set animation frame to 0
             bug.anchor.setTo(0.5, 0.5); // Center texture
-            bug.animations.add('walk', [0,1]);
+            bug.animations.add('walk', [0, 1]);
             bug.animations.play('walk', 6, true);
         }
     };
@@ -561,11 +568,26 @@
     };
 
     Phaser.Filter.Glow.prototype = Object.create(Phaser.Filter.prototype);
-    Phaser.Filter.Glow.prototype.c
+    Phaser.Filter.Glow.prototype.constructor = Phaser.Filter.Glow;
 
-    // Setup game
-    window['GameStage7'] = function GameStage7() {
+    function init(scope, finish) {
         game = new Phaser.Game(1200, 600, Phaser.AUTO, 'game');
         game.state.add('game', GameState, true);
+
+        $scope = scope;
+        finishGame = finish;
     };
+
+    function destroy() {}
+
+    // Setup game
+    window['GameStage7'] = {
+        init: init,
+        destroy: destroy,
+        game: {
+            result: 0,
+            finished: false
+        }
+    };
+
 })(window);

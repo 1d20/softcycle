@@ -1,96 +1,39 @@
+<section class="wrap-steps">
+    <div class="squiggle-container squiggle-animated">
+        <svg width="1300px" height="700px">
+            <g id="step">
+                <path class="step-path" stroke="#fdf9f9" stroke-width="7" fill="none" stroke-dasharray=""
+                    stroke-dashoffset="0.00"
+                    d="M 20,600
+                   L 150,600, 150,550, 280,550 280,500, 280,500, 410,500, 410,450, 540,450 540,400,  670,400,
+                    670,350,  670,350 , 800,350, 800,300, 930,300, 930, 250, 1060, 250, 1060, 200, 1194, 200, 1194, 150,
+                    1325, 150,1325, 100
+                   "/>
+            </g>
+        </svg>
+    </div><!-- /squiggle-container -->
 
-<div id="main-page">
-    <div class="overlay-bg"></div>
+    <div ng-repeat="s in home.states" class="step disabled step{$ $index + 1 $}">
+        <figure><i class="fa {$ home.icons[$index] $}"></i></figure>
+        <a data-toggle="modal" data-target="#myModal{$ s.id $}">{$ s.title $}</a>
+    </div>
+</section>
 
-    <!-- header -->
-    <header class="header" role="banner">
-        <div class="container">
-            <h1 class="logo"><a>SoftCycle</a></h1><!--logo-->
+<div class="modal fade" ng-repeat="s in home.states" id="myModal{$ s.id $}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel{$ s.id $}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">{$ s.title $}</h4>
+      </div>
+      <div class="modal-body">
+        <p>{$ s.description $}</p>
+      </div>
+      <div class="modal-footer">
+        <a href="/#/stage/{$ s.id $}" class="btn btn-primary">Challenge</a>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
-            <nav class="navbar" role="navigation">
-                  <a class="button" href="#">login</a>
-            </nav><!-- /nav -->
-
-        </div><!-- /container -->
-
-    </header>
-    <!-- /header -->
-
-    <!-- content -->
-    <main class="content" role="main">
-            <section class="wrap-steps">
-                <div class="squiggle-container squiggle-animated">
-                    <svg width="1300px" height="700px">
-                        <g id=step">
-                                <path class="step-path" stroke="#fdf9f9" stroke-width="7" fill="none" stroke-dasharray=""
-                                stroke-dashoffset="0.00"
-                                d="M 20,600
-                                   L 150,600, 150,550, 280,550 280,500, 280,500, 410,500, 410,450, 540,450 540,400,  670,400,
-                                    670,350,  670,350 , 800,350, 800,300, 930,300, 930, 250, 1060, 250, 1060, 200, 1194, 200, 1194, 150,
-                                    1325, 150,1325, 100
-                                   "/>
-                        </g>
-                    </svg>
-                </div><!-- /squiggle-container -->
-
-                <div class="step step1 disabled">
-                    <figure><i class="fa fa-lightbulb-o"></i></figure>
-                    <a href="#">Initiation</a>
-                </div>
-                <div class="step step2 disabled">
-                    <figure><i class="fa fa-wrench"></i></figure>
-                    <a href="#">System Concept Development</a>
-                </div>
-                <div class="step step3 disabled">
-                    <figure><i class="fa fa-book"></i></figure>
-                    <a href="#">Planning</a>
-                </div>
-                <div class="step step4 disabled">
-                    <figure><i class="fa fa-line-chart"></i></figure>
-                    <a href="#">Requirements Analysis</a>
-                </div>
-                <div class="step step5 disabled">
-                    <figure><i class="fa fa-picture-o"></i></figure>
-                    <a href="#">Design</a>
-                </div>
-                <div class="step step6 disabled">
-                     <figure> <i class="fa fa-cogs"></i></figure>
-                    <a href="#">Development</a>
-                </div>
-                <div class="step step7 disabled">
-                    <figure><i class="fa fa-desktop"></i></figure>
-                    <a href="#">Integration and Test</a>
-                </div>
-                <div class="step step8 disabled">
-                    <figure> <i class="fa fa-globe"></i></figure>
-                    <a href="#">Implementation</a>
-                </div>
-                <div class="step step9 disabled">
-                    <figure><i class="fa fa-briefcase"></i></figure>
-                     <a href="#">Opearations & Maintenance</a>
-                </div>
-                <div class="step step10 disabled">
-                    <figure><i class="fa fa-flag-checkered"></i></figure>
-                    <a href="#">Disposition</a>
-                </div>
-            </section><!-- /wrap-steps -->
-
-        <div class="clearfix"></div>
-    </main>
-    <!-- /content-->
-
-
-    <footer class="footer">
-        <div class="wrap">
-            <p class="copy text-center">powered by <a tagret="_blank" href="http://1d20dev.com/">1d20</a></p>
-            <ul class="nav-bottom text-center">
-                <li ><a target="_blank" href="http://vk.com/1d20dev"><i class="fa fa-vk"></i></a></li>
-                <li><a  target="_blank" href="https://www.facebook.com/pages/1d20/1494887337438338"><i class="fa fa-facebook-square"></i></a></li>
-                <li><a target="_blank" href="https://twitter.com/1d20dev"><i class="fa fa-twitter-square"></i></a></li>
-                <li><a target="_blank" href="https://github.com/1d20"><i class="fa fa-github"></i></a></li>
-                <li><a  target="_blank" href="https://www.linkedin.com/company/4830524?trk=prof-exp-company-name"><i class="fa fa-linkedin-square"></i></a></li>
-            </ul>
-        </div>
-    </footer> 
-
-</div><!-- /main-container -->
+<div class="clearfix"></div>

@@ -196,7 +196,7 @@ a:hover {
     font-family: $font-pacifico;
     font-size: 44px;
     text-align: center;
-    -webkit-animation: bounceInUp 15s;
+    -webkit-animation: bounceInUp 1s;
 }
 .logo a{
     display: block;
@@ -225,6 +225,13 @@ a:hover {
 	position: relative;
   @include transition(all,0.5s, ease-in-out);
 }
+
+@for $i from 1 through 10 {
+  .step#{$i} {
+    -webkit-animation: zoomInDown 2s + ($i*0.5);
+  }
+}
+
 .step.disabled:hover {
 	opacity: 1; 
     scale: 1.25;

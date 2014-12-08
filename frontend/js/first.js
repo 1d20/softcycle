@@ -92,7 +92,7 @@
         game: {
             score: 0,
             finished: false
-        }
+        },
         rules: 'Check out points that match most to the Concept Proposal'
     }
 })(window);

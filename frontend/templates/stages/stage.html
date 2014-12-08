@@ -2,7 +2,7 @@
 	<h1 class="page-header">{$ stage.title $} <button class="pull-right btn-xs btn-default" ng-click="stage.next()">Next</button></h1>
 	<blockquote><p>{$ stage.description $}<p></blockquote>
 	<h3 ng-if="stage.max_score">Max: <b>{$ stage.max_score.score $}</b> at <em>{$ stage.max_score.date | date:'short' $}</em> </h3>
-	<div ng-if="stage.stageId < 8">
+	<div ng-if="stage.stageId < 8" style="position:relative; clear:both;">
 		<h2>Highscores</h2>
 		<ul ng-if="stage.scores.length">
 			<li ng-repeat="s in stage.scores"><b>{$ s.score $}</b> at <em>{$ s.date | date:'short' $}</em></li>

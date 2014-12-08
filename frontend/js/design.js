@@ -268,7 +268,7 @@
         // initPuzzle();
 
         var timeSpend = new Date();
-        var score = 1200 - ~~((timeSpend - time) / 100);
+        var score = 1200 - ~~((timeSpend - time) / 1000);
         window['GameStage5'].game.score = score;
         window['GameStage5'].game.finished = true;
         $scope.$digest();

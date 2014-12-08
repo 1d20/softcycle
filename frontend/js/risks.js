@@ -1,5 +1,9 @@
 (function(window) {
     var game;
+    var $scope;
+    var finished;
+    var finishGame;
+
     var GlobalRating = {
         Rate_Bad: 0,
         Rate_Good: 0,
@@ -82,11 +86,16 @@
     };
 
     function timeIsOut() {
-        var huita = GlobalRating.Rate_Good - GlobalRating.Rate_Bad;
-        stateText.text = " Time is up!\n Your Highscore: " + huita.toString();
+        window['GameStage2'].game.score = GlobalRating.Rate_Good - GlobalRating.Rate_Bad;
+        window['GameStage2'].game.finished = true;
+
+        $scope.$digest();
+
+        finishGame();
+
+        stateText.text = " Time is up!\n Your Highscore: " + window['GameStage2'].game.score;
         stateText.visible = true;
         this.game.paused = true;
-        
     }
 
     function timeUpd() {
@@ -160,7 +169,7 @@
             }
         }, this);
 
-        if(stateText.visible == true) 
+        if (stateText.visible == true)
             game.destroy();
     };
 
@@ -388,9 +397,25 @@
 
     };
 
-    window['GameStage2'] = function GameStage2() {
+    function init(scope, finish) {
         game = new Phaser.Game(900, 600, Phaser.AUTO, 'game');
         game.state.add('game', GameState, true);
+
+        $scope = scope;
+        finishGame = finish;
+    };
+
+    function destroy() {
+        game.destroy();
+    }
+
+    window['GameStage2'] = {
+        init: init,
+        game: {
+            score: 0,
+            finished: 0
+        },
+        destroy: destroy
     };
 
 })(window);

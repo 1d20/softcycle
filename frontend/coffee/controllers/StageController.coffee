@@ -1,27 +1,38 @@
-StageController = ($log, $scope, $http, stage, $routeParams, $window) ->
+StageController = ($log, $scope, $http, $routeParams, $window, stage, stats) ->
 	self = @
 
-	stage = $routeParams.id
+	stageId = $routeParams.id
 
-	stage.title = '';
-	stage.description = '';
-	stage.rules = '';
-	stage.highscore = [];
-	stage.highscores = [];
+	self.stage = stage.data
+	self.stats = stats.data
+	self.title = stage.data.title;
+	self.description = stage.data.description;
+	self.rules = '';
+	self.max_score = stats.data.max_score;
+	self.scores = stats.data.scores;
+	self.game = $window["GameStage#{stageId}"].game
 
 	gameFinished = ->
-		$http.post "/api/stage/#{stage}/", {score: self.game.result}
+		$http.post "/api/stage/#{stageId}/", {score: self.game.score}
 			.success (data) ->
-				console.log data
+				self.max_score = data.max_score
+				self.scores = data.scores
 			.error (data) ->
 				console.log data
 
-	$window["GameStage#{stage}"].init $scope, gameFinished
-	self.game = $window["GameStage#{stage}"].game
-
-	console.log self.game
-	
+	self.init = ->
+		$window["GameStage#{stageId}"].init $scope, gameFinished
+		
 	self
 
 angular.module 'soft.controllers.StageController', []
-	.controller 'StageController', ['$log', '$scope', '$http', 'stage', '$routeParams', '$window', StageController]
+	.controller 'StageController', [
+		'$log', 
+		'$scope', 
+		'$http', 
+		'$routeParams', 
+		'$window', 
+		'stage', 
+		'stats', 
+		StageController
+	]

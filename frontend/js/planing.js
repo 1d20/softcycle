@@ -196,7 +196,7 @@
     };
 
     function timeIsOut() {
-        window['GameStage3'].game.result = Config.got.budget + Config.got.time + Config.got.staff - Config.got.problem;
+        window['GameStage3'].game.score = Config.got.budget + Config.got.time + Config.got.staff - Config.got.problem;
         window['GameStage3'].game.finished = true;
         $scope.$digest();
 
@@ -502,7 +502,7 @@
             gameFinished = finish;
         },
         game: {
-            result: 0,
+            score: 0,
             finished: false
         }
     };

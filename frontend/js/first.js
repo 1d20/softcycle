@@ -8,7 +8,7 @@
         'Title of Investment',
         'Originator',
         'Date',
-        'Mission \ Goals',
+        'Mission & Goals',
         'Benefits',
         'Warranted Investment',
         'Funding'

@@ -4,8 +4,9 @@ StageController = ($log, $scope, $http, $routeParams, $window, stage, stats) ->
 	stageId = $routeParams.id
 
 	scoreTransform = (score) ->
-		score: score.score
-		date: new Date score.date
+		if(score)
+			score: score.score
+			date: new Date score.date
 
 	self.stage = stage.data
 	self.stats = stats.data

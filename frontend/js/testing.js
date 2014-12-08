@@ -1,5 +1,6 @@
 (function(window) {
     var game;
+    var res;
     var $scope;
     var finishGame;
 
@@ -157,7 +158,7 @@
         stateText.visible = true;
         this.game.paused = true;
 
-        window["GameStage7"].game.result = codestat + bugstat;
+        window["GameStage7"].game.score = codestat + bugstat;
         window["GameStage7"].game.finished = true;
 
         $scope.$digest();
@@ -585,9 +586,10 @@
         init: init,
         destroy: destroy,
         game: {
-            result: 0,
+            score: 0,
             finished: false
         }
     };
 
+    res = window['GameStage7'].game;
 })(window);

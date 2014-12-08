@@ -151,8 +151,8 @@
 
         console.log(e.layerX, e.layerY);
         if (e.layerX || e.layerX == 0) {
-            mouse.x = e.layerX - canvas.offsetLeft;
-            mouse.y = e.layerY - canvas.offsetTop;
+            mouse.x = e.layerX - canvas.offsetLeft - 130;
+            mouse.y = e.layerY - canvas.offsetTop - 174;
         } else if (e.offsetX || e.offsetX == 0) {
             mouse.x = e.offsetX - canvas.offsetLeft;
             mouse.y = e.offsetY - canvas.offsetTop;
@@ -191,8 +191,8 @@
         //console.log(e);
         currentDropPiece = null;
         if (e.layerX || e.layerX == 0) {
-            mouse.x = e.layerX - canvas.offsetLeft ;
-            mouse.y = e.layerY - canvas.offsetTop ;
+            mouse.x = e.layerX - canvas.offsetLeft - 130;
+            mouse.y = e.layerY - canvas.offsetTop - 174;
         } else if (e.offsetX || e.offsetX == 0) {
             mouse.x = e.offsetX - canvas.offsetLeft ;
             mouse.y = e.offsetY - canvas.offsetTop ;
@@ -268,7 +268,7 @@
         // initPuzzle();
 
         var timeSpend = new Date();
-        var score = 1200 - ~~((timeSpend - time) / 100);
+        var score = 1200 - ~~((timeSpend - time) / 1000);
         window['GameStage5'].game.score = score;
         window['GameStage5'].game.finished = true;
         $scope.$digest();

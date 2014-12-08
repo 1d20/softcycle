@@ -588,7 +588,8 @@
         game: {
             score: 0,
             finished: false
-        }
+        },
+        rules: "Kill that irritating bugs! KILL!!! And don't touch qute ponnies, they are your code =)"
     };
 
     res = window['GameStage7'].game;

@@ -413,7 +413,8 @@
         game: {
             score: 0,
             finished: false
-        }
+        },
+        rules: "Try to find out all the requirements for your project! It's quite painstaking and borring, but one of the most important steps!"
     };
 
     res = window['GameStage4'].game;

@@ -74,6 +74,7 @@
         game: {
             score: 0,
             finished: false
-        }
+        },
+        rules: "Write the code! Faster! FASTERRR!!"
     };
 })(window);

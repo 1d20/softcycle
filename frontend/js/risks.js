@@ -424,7 +424,8 @@
             score: 0,
             finished: 0
         },
-        destroy: destroy
+        destroy: destroy,
+        rules: "Try to stay away from risks! And don't forget to pick up some benefits =)"
     };
 
 })(window);

@@ -35,8 +35,24 @@
 
     }
 
+    /*function getOffsetSum(elem) {
+        var top = 0,
+            left = 0
+        while (elem) {
+            top = top + parseFloat(elem.offsetTop)
+            left = left + parseFloat(elem.offsetLeft)
+            elem = elem.offsetParent
+        }
+
+        return {
+            top: Math.round(top),
+            left: Math.round(left)
+        }
+    }*/
+
+
     function onImage(e) {
-        console.log('on Image called');
+        //console.log('on Image called');
         pieceWidth = Math.floor(img.width / PUZZLEDIFFICULTY)
         pieceHeight = Math.floor(img.height / PUZZLEDIFFICULTY)
         puzzleWidth = pieceWidth * PUZZLEDIFFICULTY;
@@ -56,7 +72,7 @@
     }
 
     function initPuzzle() {
-        console.log('initPuzzle called');
+        //console.log('initPuzzle called');
         pieces = [];
         mouse = {
             x: 0,
@@ -132,14 +148,16 @@
     }
 
     function onPuzzleClick(e) {
+
         console.log(e.layerX, e.layerY);
         if (e.layerX || e.layerX == 0) {
             mouse.x = e.layerX - canvas.offsetLeft;
-            mouse.y = e.layerY - canvas.offsetTop - 100;
+            mouse.y = e.layerY - canvas.offsetTop;
         } else if (e.offsetX || e.offsetX == 0) {
             mouse.x = e.offsetX - canvas.offsetLeft;
             mouse.y = e.offsetY - canvas.offsetTop;
         }
+        //console.log(getOffsetSum(canvas));
         currentPiece = checkPieceClicked();
         console.log(currentPiece);
         if (currentPiece != null) {
@@ -156,10 +174,10 @@
     function checkPieceClicked() {
         var i;
         var piece;
-        console.log(pieces);
+        //console.log(pieces);
         for (i = 0; i < pieces.length; i++) {
             piece = pieces[i];
-            if (mouse.x < piece.xPos || mouse.x > (piece.xPos + pieceWidth) || 
+            if (mouse.x < piece.xPos || mouse.x > (piece.xPos + pieceWidth) ||
                 mouse.y < piece.yPos || mouse.y > (piece.yPos + pieceHeight)) {
                 //PIECE NOT HIT
             } else {
@@ -170,14 +188,14 @@
     }
 
     function updatePuzzle(e) {
-        console.log(e);
+        //console.log(e);
         currentDropPiece = null;
         if (e.layerX || e.layerX == 0) {
-            mouse.x = e.layerX - canvas.offsetLeft - 100;
-            mouse.y = e.layerY - canvas.offsetTop - 100;
+            mouse.x = e.layerX - canvas.offsetLeft ;
+            mouse.y = e.layerY - canvas.offsetTop ;
         } else if (e.offsetX || e.offsetX == 0) {
-            mouse.x = e.offsetX - canvas.offsetLeft - 100;
-            mouse.y = e.offsetY - canvas.offsetTop - 100;
+            mouse.x = e.offsetX - canvas.offsetLeft ;
+            mouse.y = e.offsetY - canvas.offsetTop ;
         }
         stage.clearRect(0, 0, puzzleWidth, puzzleHeight);
         var i;

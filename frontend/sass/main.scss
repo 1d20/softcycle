@@ -153,8 +153,7 @@ body {
      height: 100%;
      overflow-x: hidden;
      background: url('../images/bg/back-1d20_1.png') 309px -313px no-repeat;
-
-    }
+}
 html {
 	height: 100%;
 	min-height: 100%;
@@ -430,4 +429,22 @@ a:hover {
   clear: both;
   height: 119px;
   width: 100%;
+}
+
+/* Bootstrap */
+$border-color: #DB6661;
+.page-header {
+  border-bottom: 1px solid $border-color;
+}
+
+blockquote {
+  border-left: 5px solid $border-color;
+}
+
+blockquote, blockquote p {
+  color: #B95854;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
 }

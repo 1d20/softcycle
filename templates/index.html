@@ -18,8 +18,8 @@
 	            <h1 class="logo"><a href="/#/">SoftCycle</a></h1><!--logo-->
 
 	            <nav class="navbar" role="navigation">
-	                <a class="button" ng-if="!soft.username" href="/login/google-oauth2/">Login</a>
-	                <a class="button" ng-if="soft.username" href="/logout/">{$ soft.username $}</a>
+	                <a class="button" ng-cloak ng-show="!soft.username" href="/login/google-oauth2/">Login</a>
+	                <a class="button" ng-cloak ng-show="soft.username" href="/logout/">{$ soft.username $}</a>
 	            </nav><!-- /nav -->
 
 	        </div><!-- /container -->
